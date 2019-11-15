@@ -52,7 +52,9 @@ namespace MultiscaleModelingProject
 
 
         }
-
+        /// <summary>
+        /// whatever
+        /// </summary>
         private void SetupUI()
         {
             this.caNeighborhoodComboBox.SelectedIndex = 0;
