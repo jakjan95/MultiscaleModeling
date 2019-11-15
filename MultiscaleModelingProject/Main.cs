@@ -113,8 +113,17 @@ namespace MultiscaleModelingProject
             this.Board.Refresh();
         }
 
+
+        /// <summary>
+        /// Add possibility to dynamic change state of gridPeriodicCheckBox.
+        /// At this moment in the case to run simulation without periodic boundaries 
+        /// is needed to press restart button before simulation button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void caSimulateButton_Click(object sender, EventArgs e)
         {
+
             var name = caNeighborhoodComboBox.SelectedItem.ToString();
             ca.Start(name, Board);
         }
@@ -146,6 +155,26 @@ namespace MultiscaleModelingProject
         private void gridPeriodicCheckBox_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void csvSaveButton_Click(object sender, EventArgs e)
+        {
+            string filepath = "board.txt";
+            System.IO.File.WriteAllBytes(filepath, new byte[0]);
+            //using(System.IO.StreamWriter file = new System.IO.StreamWriter (@filepath, true))
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@filepath, true))
+            {
+                for (int x = 0; x < this.grid.Height; ++x)
+                {
+                    for (int y = 0; y < this.grid.Width; ++y)
+                    {
+                        Cell c = this.grid.GetCell(x, y);
+                        file.WriteLine(x + ", " + y + ", " + c.ID);
+                    }
+                }
+
+             
+            }
         }
     }
 }

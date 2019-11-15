@@ -40,6 +40,7 @@
             this.caGrainsNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.ResetButton = new System.Windows.Forms.Button();
             this.SaveBitmap_Button = new System.Windows.Forms.Button();
+            this.csvSaveButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Board)).BeginInit();
             this.caGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.caGrainsNumericUpDown)).BeginInit();
@@ -176,11 +177,22 @@
             this.SaveBitmap_Button.UseVisualStyleBackColor = true;
             this.SaveBitmap_Button.Click += new System.EventHandler(this.SaveBitmap_Button_Click);
             // 
+            // csvSaveButton
+            // 
+            this.csvSaveButton.Location = new System.Drawing.Point(554, 41);
+            this.csvSaveButton.Name = "csvSaveButton";
+            this.csvSaveButton.Size = new System.Drawing.Size(96, 23);
+            this.csvSaveButton.TabIndex = 10;
+            this.csvSaveButton.Text = "Save as csv";
+            this.csvSaveButton.UseVisualStyleBackColor = true;
+            this.csvSaveButton.Click += new System.EventHandler(this.csvSaveButton_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(662, 624);
+            this.Controls.Add(this.csvSaveButton);
             this.Controls.Add(this.SaveBitmap_Button);
             this.Controls.Add(this.ResetButton);
             this.Controls.Add(this.caGroupBox);
@@ -209,6 +221,7 @@
         private System.Windows.Forms.Button ResetButton;
         private System.Windows.Forms.Button NextStep_Button;
         private System.Windows.Forms.Button SaveBitmap_Button;
+        private System.Windows.Forms.Button csvSaveButton;
     }
 }
 
