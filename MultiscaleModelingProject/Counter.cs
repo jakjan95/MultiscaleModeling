@@ -15,7 +15,6 @@ namespace MultiscaleModelingProject
             this.counter = new Dictionary<int, int>();
         }
 
-        //HMMMMM?
         public void AddCell(Cell cell)
         {
             //0 - null
@@ -38,7 +37,6 @@ namespace MultiscaleModelingProject
                 this.AddCell(c);
             }
         }
-        //????
 
         public CounterReturn MostCommonID
         {

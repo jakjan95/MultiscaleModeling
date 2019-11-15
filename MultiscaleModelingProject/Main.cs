@@ -102,7 +102,7 @@ namespace MultiscaleModelingProject
         }
 
 
-        //Board click logic
+        //
         //
 
 
@@ -141,6 +141,11 @@ namespace MultiscaleModelingProject
             Bitmap bmp = new Bitmap(Board.ClientSize.Width, Board.ClientSize.Height);
             Board.DrawToBitmap(bmp, Board.ClientRectangle);
             bmp.Save("board.bmp");
+        }
+
+        private void gridPeriodicCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -13,6 +13,6 @@ namespace MultiscaleModelingProject
         public delegate void OnLogic();
         public delegate void OffLogic();
 
-        //public BoardClickLogic BoardClick { set; get; }
+        public BoardClickLogic BoardClick { set; get; }
     }
 }

@@ -71,7 +71,7 @@ namespace MultiscaleModelingProject
         {
             get { return this.Neighbors[7]; }
         }
-
+        #endregion
         public IEnumerable<Cell> MoorNeighborhood
         {
             get { return this.Neighbors; }
@@ -91,7 +91,7 @@ namespace MultiscaleModelingProject
             }
         }
 
-        public IEnumerable<Cell> LeftPentagonal
+        public IEnumerable<Cell> LeftPentagonalNeighborhood
         {
             get
             {
@@ -106,7 +106,7 @@ namespace MultiscaleModelingProject
             }
         }
 
-        public IEnumerable<Cell> RightPentagonal
+        public IEnumerable<Cell> RightPentagonalNeighborhood
         {
             get
             {
@@ -121,7 +121,7 @@ namespace MultiscaleModelingProject
             }
         }
 
-        public IEnumerable<Cell> LeftHexagonal
+        public IEnumerable<Cell> LeftHexagonalNeighborhood
         {
             get
             {
@@ -137,7 +137,7 @@ namespace MultiscaleModelingProject
             }
         }
 
-        public IEnumerable<Cell> RightHexagonal
+        public IEnumerable<Cell> RightHexagonalNeighborhood
         {
             get
             {
@@ -156,7 +156,7 @@ namespace MultiscaleModelingProject
 
 
 
-        #endregion
+       
 
     }
 }

@@ -10,7 +10,7 @@ namespace MultiscaleModelingProject
     public class AlgorithmCA
     {
 
-        private const int MAX_GRAIN_ID = 200;
+        private const int MAX_GRAIN_ID = 300;
         public int Width { set; get; }
         public int Height { set; get; }
         protected Grid grid;
@@ -88,7 +88,7 @@ namespace MultiscaleModelingProject
             }
         }
         /// <summary>
-        /// edycja na asynchroniczne
+        /// edition for asynchronic ;)
         /// </summary>
         /// <param name="name"></param>
         /// <param name="board"></param>
@@ -99,6 +99,7 @@ namespace MultiscaleModelingProject
                 board.Refresh();
             }
         }
+
         public void NextStep(string name, PictureBox board)
         {
             Step(name);
@@ -109,10 +110,21 @@ namespace MultiscaleModelingProject
         {
             int changes = 0;
             this.grid.ResetCurrentCellPosition();
+
             if(name.Equals("Moore"))
                 f += Moore;
             else if (name.Equals("Von Neumann"))
                 f += VanNeuman;
+            else if (name.Equals("Left Pentagonal"))
+                f += LeftPentagonal;
+            else if (name.Equals("Right Pentagonal"))
+                f += RightPentagonal;
+            else if (name.Equals("Left Hexagonal"))
+                f += LeftHexagonal;
+            else if (name.Equals("Right Hexagonal"))
+                f += RightHexagonal;
+
+
             //Iterate cells line by line
             do
             {
@@ -161,6 +173,58 @@ namespace MultiscaleModelingProject
             return false;
         }
 
+        protected bool LeftPentagonal(Cell c)
+        {
+            CounterReturn cr = this.LeftPentagonalMostCommonCell(c);
+
+            if (cr != null)
+            {
+                this.grid.CurrentCell.NewID = cr.ID;
+                return true;
+            }
+
+            return false;
+        }
+
+        protected bool RightPentagonal(Cell c)
+        {
+            CounterReturn cr = this.RightPentagonalMostCommonCell(c);
+
+            if (cr != null)
+            {
+                this.grid.CurrentCell.NewID = cr.ID;
+                return true;
+            }
+
+            return false;
+        }
+
+        protected bool LeftHexagonal(Cell c)
+        {
+            CounterReturn cr = this.LeftHexagonalMostCommonCell(c);
+
+            if (cr != null)
+            {
+                this.grid.CurrentCell.NewID = cr.ID;
+                return true;
+            }
+
+            return false;
+        }
+
+        protected bool RightHexagonal(Cell c)
+        {
+            CounterReturn cr = this.RightHexagonalCommonCell(c);
+
+            if (cr != null)
+            {
+                this.grid.CurrentCell.NewID = cr.ID;
+                return true;
+            }
+
+            return false;
+        }
+
         //
         protected CounterReturn MooreMostCommonCell(Cell c)
         {
@@ -175,6 +239,42 @@ namespace MultiscaleModelingProject
             Counter counter = new Counter();
 
             counter.AddCells(c.VonNeumannNeighborhood);
+
+            return counter.MostCommonID;
+        }
+
+        protected CounterReturn LeftPentagonalMostCommonCell(Cell c)
+        {
+            Counter counter = new Counter();
+
+            counter.AddCells(c.LeftPentagonalNeighborhood);
+
+            return counter.MostCommonID;
+        }
+
+        protected CounterReturn RightPentagonalMostCommonCell(Cell c)
+        {
+            Counter counter = new Counter();
+
+            counter.AddCells(c.RightPentagonalNeighborhood);
+
+            return counter.MostCommonID;
+        }
+
+        protected CounterReturn LeftHexagonalMostCommonCell(Cell c)
+        {
+            Counter counter = new Counter();
+
+            counter.AddCells(c.LeftHexagonalNeighborhood);
+
+            return counter.MostCommonID;
+        }
+
+        protected CounterReturn RightHexagonalCommonCell(Cell c)
+        {
+            Counter counter = new Counter();
+
+            counter.AddCells(c.RightHexagonalNeighborhood);
 
             return counter.MostCommonID;
         }
