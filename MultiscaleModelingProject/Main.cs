@@ -78,7 +78,7 @@ namespace MultiscaleModelingProject
         {
             this.brushes = new List<Brush>();
 
-            foreach(PropertyInfo pf in typeof (Brushes).GetProperties())
+            foreach (PropertyInfo pf in typeof(Brushes).GetProperties())
             {
                 this.brushes.Add(pf.GetValue(null, null) as Brush);
             }
@@ -95,7 +95,7 @@ namespace MultiscaleModelingProject
                     Cell c = this.grid.GetCell(x, y);
                     if (c.ID != 0)
                     {
-                        e.Graphics.FillRectangle((c.Selected) ? Brushes.Red : this.brushes[c.ID], x, y, 1, 1);
+                        e.Graphics.FillRectangle((c.Selected) ? Brushes.Yellow : this.brushes[c.ID], x, y, 1, 1);
                     }
                 }
             }

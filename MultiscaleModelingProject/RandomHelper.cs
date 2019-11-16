@@ -10,10 +10,6 @@ namespace MultiscaleModelingProject
     {
         private static Random random = new Random();
 
-        public static int Next()
-        {
-            return RandomHelper.random.Next();
-        }
 
         public static int Next(int maxValue)
         {

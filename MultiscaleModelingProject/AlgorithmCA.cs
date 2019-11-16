@@ -10,7 +10,7 @@ namespace MultiscaleModelingProject
     public class AlgorithmCA
     {
 
-        private const int MAX_GRAIN_ID = 300;
+        private const int MAX_GRAIN_ID = 150;
         public int Width { set; get; }
         public int Height { set; get; }
         protected Grid grid;
@@ -88,7 +88,7 @@ namespace MultiscaleModelingProject
             }
         }
         /// <summary>
-        /// edition for asynchronic ;)
+        /// edit on asynchronic
         /// </summary>
         /// <param name="name"></param>
         /// <param name="board"></param>

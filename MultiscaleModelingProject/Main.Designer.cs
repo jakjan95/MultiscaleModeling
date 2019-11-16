@@ -153,6 +153,11 @@
             // caGrainsNumericUpDown
             // 
             this.caGrainsNumericUpDown.Location = new System.Drawing.Point(84, 19);
+            this.caGrainsNumericUpDown.Maximum = new decimal(new int[] {
+            140,
+            0,
+            0,
+            0});
             this.caGrainsNumericUpDown.Name = "caGrainsNumericUpDown";
             this.caGrainsNumericUpDown.Size = new System.Drawing.Size(46, 20);
             this.caGrainsNumericUpDown.TabIndex = 2;
