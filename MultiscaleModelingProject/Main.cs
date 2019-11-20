@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Reflection;
 using System.Drawing.Imaging;
+using System.Threading;
 
 namespace MultiscaleModelingProject
 {
@@ -34,6 +35,8 @@ namespace MultiscaleModelingProject
         private Grid grid;
         private AlgorithmCA ca;
         private List<Brush> brushes;
+        private Task t;
+        private CancellationTokenSource tokenSource = new CancellationTokenSource();
 
 
         //Storing all UI stateButtons
@@ -125,7 +128,20 @@ namespace MultiscaleModelingProject
         {
 
             var name = caNeighborhoodComboBox.SelectedItem.ToString();
-            ca.Start(name, Board);
+            //ca.Start(name, Board);
+            tokenSource = new CancellationTokenSource();
+            
+                t = Task.Run(async () =>
+                {
+                    try
+                    {
+                        await ca.StartAsync(name, Board, tokenSource.Token);
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        Debug.WriteLine($"\n{nameof(OperationCanceledException)} thrown\n");
+                    }
+                }, tokenSource.Token);
         }
 
         private void caNeighborhoodComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -135,6 +151,7 @@ namespace MultiscaleModelingProject
 
         private void ResetButton_Click(object sender, EventArgs e)
         {
+            tokenSource.Cancel();
             this.SetupGrid();
             this.SetupBoard();
         }

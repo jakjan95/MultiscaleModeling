@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -100,6 +101,26 @@ namespace MultiscaleModelingProject
             }
         }
 
+        /// <summary>
+        /// edit on asynchronic
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="board"></param>
+        public async Task StartAsync(string name, PictureBox board, CancellationToken ct)
+        {
+            while (await StepAsync(name))
+            {
+                board.Invoke(new Action(delegate ()
+                {
+                    board.Refresh();
+                }));
+                if (ct.IsCancellationRequested)
+                {
+                    ct.ThrowIfCancellationRequested();
+                }
+            }
+        }
+
         public void NextStep(string name, PictureBox board)
         {
             Step(name);
@@ -111,7 +132,7 @@ namespace MultiscaleModelingProject
             int changes = 0;
             this.grid.ResetCurrentCellPosition();
 
-            if(name.Equals("Moore"))
+            if (name.Equals("Moore"))
                 f += Moore;
             else if (name.Equals("Von Neumann"))
                 f += VanNeuman;
@@ -137,6 +158,47 @@ namespace MultiscaleModelingProject
                     }
                 }
             } while (this.grid.Next());
+
+            if (changes > 0)
+            {
+                //Copying values
+                this.grid.CopyNewIDtoID();
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> StepAsync(string name)
+        {
+            int changes = 0;
+            grid.ResetCurrentCellPosition();
+
+            if (name.Equals("Moore"))
+                f += Moore;
+            else if (name.Equals("Von Neumann"))
+                f += VanNeuman;
+            else if (name.Equals("Left Pentagonal"))
+                f += LeftPentagonal;
+            else if (name.Equals("Right Pentagonal"))
+                f += RightPentagonal;
+            else if (name.Equals("Left Hexagonal"))
+                f += LeftHexagonal;
+            else if (name.Equals("Right Hexagonal"))
+                f += RightHexagonal;
+
+
+            //Iterate cells line by line
+            do
+            {
+                //Grains growth only on empty cell
+                if (grid.CurrentCell.ID == 0)
+                {
+                    if (f(grid.CurrentCell))
+                    {
+                        ++changes;
+                    }
+                }
+            } while (grid.Next());
 
             if (changes > 0)
             {
