@@ -17,8 +17,15 @@ namespace MultiscaleModelingProject
     public partial class Main : Form
     {
         #region Properties
-        private int GridWidth = 500;
-        private int GridHeight = 500;
+        private int GridWidth
+        {
+            get { return (int)this.BoardWidthNumericUpDown.Value; }
+        }
+
+        private int GridHeight
+        {
+            get { return (int)this.BoardHeightNumericUpDown.Value; }
+        }
 
         private bool GridPeriodic
         {

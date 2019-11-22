@@ -41,9 +41,15 @@
             this.ResetButton = new System.Windows.Forms.Button();
             this.SaveBitmap_Button = new System.Windows.Forms.Button();
             this.csvSaveButton = new System.Windows.Forms.Button();
+            this.BoardWidthNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.BoardHeightNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.BoardWidthLabel = new System.Windows.Forms.Label();
+            this.BoardHeightLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Board)).BeginInit();
             this.caGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.caGrainsNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BoardWidthNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BoardHeightNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // Board
@@ -76,7 +82,7 @@
             this.caGroupBox.Controls.Add(this.caAddRandomGrainsButton);
             this.caGroupBox.Controls.Add(this.caGrainsNumericUpDown);
             this.caGroupBox.Controls.Add(this.caSimulateButton);
-            this.caGroupBox.Location = new System.Drawing.Point(12, 12);
+            this.caGroupBox.Location = new System.Drawing.Point(87, 10);
             this.caGroupBox.Name = "caGroupBox";
             this.caGroupBox.Size = new System.Drawing.Size(254, 100);
             this.caGroupBox.TabIndex = 2;
@@ -192,11 +198,67 @@
             this.csvSaveButton.UseVisualStyleBackColor = true;
             this.csvSaveButton.Click += new System.EventHandler(this.csvSaveButton_Click);
             // 
+            // BoardWidthNumericUpDown
+            // 
+            this.BoardWidthNumericUpDown.Location = new System.Drawing.Point(15, 28);
+            this.BoardWidthNumericUpDown.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.BoardWidthNumericUpDown.Name = "BoardWidthNumericUpDown";
+            this.BoardWidthNumericUpDown.Size = new System.Drawing.Size(46, 20);
+            this.BoardWidthNumericUpDown.TabIndex = 9;
+            this.BoardWidthNumericUpDown.Value = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            // 
+            // BoardHeightNumericUpDown
+            // 
+            this.BoardHeightNumericUpDown.Location = new System.Drawing.Point(15, 77);
+            this.BoardHeightNumericUpDown.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.BoardHeightNumericUpDown.Name = "BoardHeightNumericUpDown";
+            this.BoardHeightNumericUpDown.Size = new System.Drawing.Size(46, 20);
+            this.BoardHeightNumericUpDown.TabIndex = 9;
+            this.BoardHeightNumericUpDown.Value = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            // 
+            // BoardWidthLabel
+            // 
+            this.BoardWidthLabel.AutoSize = true;
+            this.BoardWidthLabel.Location = new System.Drawing.Point(12, 12);
+            this.BoardWidthLabel.Name = "BoardWidthLabel";
+            this.BoardWidthLabel.Size = new System.Drawing.Size(66, 13);
+            this.BoardWidthLabel.TabIndex = 9;
+            this.BoardWidthLabel.Text = "Board Width";
+            // 
+            // BoardHeightLabel
+            // 
+            this.BoardHeightLabel.AutoSize = true;
+            this.BoardHeightLabel.Location = new System.Drawing.Point(12, 60);
+            this.BoardHeightLabel.Name = "BoardHeightLabel";
+            this.BoardHeightLabel.Size = new System.Drawing.Size(69, 13);
+            this.BoardHeightLabel.TabIndex = 11;
+            this.BoardHeightLabel.Text = "Board Height";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(662, 624);
+            this.Controls.Add(this.BoardHeightLabel);
+            this.Controls.Add(this.BoardWidthLabel);
+            this.Controls.Add(this.BoardHeightNumericUpDown);
+            this.Controls.Add(this.BoardWidthNumericUpDown);
             this.Controls.Add(this.csvSaveButton);
             this.Controls.Add(this.SaveBitmap_Button);
             this.Controls.Add(this.ResetButton);
@@ -208,7 +270,10 @@
             this.caGroupBox.ResumeLayout(false);
             this.caGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.caGrainsNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BoardWidthNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BoardHeightNumericUpDown)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -227,6 +292,10 @@
         private System.Windows.Forms.Button NextStep_Button;
         private System.Windows.Forms.Button SaveBitmap_Button;
         private System.Windows.Forms.Button csvSaveButton;
+        private System.Windows.Forms.NumericUpDown BoardWidthNumericUpDown;
+        private System.Windows.Forms.NumericUpDown BoardHeightNumericUpDown;
+        private System.Windows.Forms.Label BoardWidthLabel;
+        private System.Windows.Forms.Label BoardHeightLabel;
     }
 }
 
