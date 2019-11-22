@@ -37,6 +37,11 @@ namespace MultiscaleModelingProject
             get { return (int)this.caGrainsNumericUpDown.Value; }
         }
 
+        private int Inclusions
+        {
+            get { return (int)this.InclusionsNumericUpDown.Value; }
+        }
+
         #endregion Properties
 
         private Grid grid;
@@ -44,6 +49,7 @@ namespace MultiscaleModelingProject
         private List<Brush> brushes;
         private Task t;
         private CancellationTokenSource tokenSource = new CancellationTokenSource();
+        //private PauseTokenSource tokenSource = new PauseTokenSource();
 
 
         //Storing all UI stateButtons
@@ -88,10 +94,15 @@ namespace MultiscaleModelingProject
         {
             this.brushes = new List<Brush>();
 
-            foreach (PropertyInfo pf in typeof(Brushes).GetProperties())
+            this.brushes.Add(Brushes.Black);
+
+            foreach (PropertyInfo pf in typeof(Brushes).GetProperties().Where(p => p.Name != "Black"))
             {
                 this.brushes.Add(pf.GetValue(null, null) as Brush);
             }
+
+
+            this.brushes.Insert(0, Brushes.Black);
         }
 
         private void Board_Paint(object sender, PaintEventArgs e)
@@ -131,25 +142,34 @@ namespace MultiscaleModelingProject
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        /// 
+        ////////////////////////////////////////////////////////
+        // For the method that does your long running task...
+
+
         private void caSimulateButton_Click(object sender, EventArgs e)
         {
 
             var name = caNeighborhoodComboBox.SelectedItem.ToString();
             //ca.Start(name, Board);
+           // pauseTokenSource = new PauseTokenSource();
             tokenSource = new CancellationTokenSource();
-            
-                t = Task.Run(async () =>
+
+            t = Task.Run(async () =>
+            {
+                try
                 {
-                    try
-                    {
-                        await ca.StartAsync(name, Board, tokenSource.Token);
-                    }
-                    catch (OperationCanceledException)
-                    {
-                        Debug.WriteLine($"\n{nameof(OperationCanceledException)} thrown\n");
-                    }
-                }, tokenSource.Token);
+                    await ca.StartAsync(name, Board, tokenSource.Token);
+                }
+                catch (OperationCanceledException)
+                {
+                    Debug.WriteLine($"\n{nameof(OperationCanceledException)} thrown\n");
+                }
+            }, tokenSource.Token);
         }
+
+
+
 
         private void caNeighborhoodComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -168,6 +188,27 @@ namespace MultiscaleModelingProject
             var name = caNeighborhoodComboBox.SelectedItem.ToString();
             ca.NextStep(name, Board);
         }
+
+
+
+        //private void NextStep_Button_Click(object sender, EventArgs e)
+        //{
+        //    var name = caNeighborhoodComboBox.SelectedItem.ToString();
+        //    //ca.Start(name, Board);
+        //    tokenSource = new CancellationTokenSource();
+
+        //    t = Task.Run(async () =>
+        //    {
+        //        try
+        //        {
+        //            await ca.StartAsync(name, Board, tokenSource.Token);
+        //        }
+        //        catch (OperationCanceledException)
+        //        {
+        //            Debug.WriteLine($"\n{nameof(OperationCanceledException)} thrown\n");
+        //        }
+        //    }, tokenSource.Token);
+        //}
 
         private void SaveBitmap_Button_Click(object sender, EventArgs e)
         {
@@ -199,6 +240,27 @@ namespace MultiscaleModelingProject
 
              
             }
+        }
+
+        private void addInclusionButton_Click(object sender, EventArgs e)
+        {
+            this.ca.AddRandomInclusions(this.Inclusions);
+
+            for (int x = 0; x < this.grid.Height; ++x)
+            {
+                for (int y = 0; y < this.grid.Width; ++y)
+                {
+                    Cell c = this.grid.GetCell(x, y);
+                    if (c.ID == 1)
+                    {
+                        this.ca.AddCircleInclusion(x, y, 5);
+                    }
+
+                }
+
+            }
+
+            this.Board.Refresh();
         }
     }
 }

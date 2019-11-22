@@ -40,6 +40,7 @@ namespace MultiscaleModelingProject
         {
             bool[] usesArr = Enumerable.Repeat(false, MAX_GRAIN_ID).ToArray();
             usesArr[0] = true; // empty
+            usesArr[1] = true; // inclusion
 
             this.grid.ResetCurrentCellPosition();
 
@@ -69,12 +70,13 @@ namespace MultiscaleModelingProject
         {
             int[] notUsedIds = this.GetNotUsedIds();
 
-            for(int i=0; i < number; ++i)
+            for (int i = 0; i < number; ++i)
             {
                 if (i < notUsedIds.Length)
                 {
                     Cell c;
-                    //Looking for empty cell
+
+                    // Look for empty cell
                     do
                     {
                         c = this.grid.GetCell(RandomHelper.Next(this.Width), RandomHelper.Next(this.Height));
@@ -82,12 +84,60 @@ namespace MultiscaleModelingProject
 
                     c.ID = notUsedIds[i];
                 }
+
                 else
                 {
+                    // No more id
                     break;
                 }
             }
+
         }
+
+
+        public void AddRandomInclusions(int number)
+        {
+            for (int i = 0; i < number; ++i)
+            {
+                Cell c;
+                c = this.grid.GetCell(RandomHelper.Next(this.Width), RandomHelper.Next(this.Height));
+                c.ID = 1;
+
+            }
+        
+        }
+
+        // TUTAJ ROZKMINIC
+
+        private bool isInCircle(int r, int y, int x)
+        {
+            return (x * x) + y * y <= r * r;
+        }
+
+        public void AddCircleInclusion(int x, int y, int r)  //bez tego
+        {
+
+            for(int i = y- r; i<= y+r; i++)
+            {
+                for(int j=x-r; j<=x+r; j++)
+                {
+                    if(isInCircle(r, Math.Abs(y-i), Math.Abs(x-j))  &&i>=0 && j>=0 && this.Width > i && this.Height > j)
+                    {
+                        this.AddInclusion(i, j);
+                    }
+                }
+
+            }
+        }
+
+        protected void AddInclusion(int x, int y)
+        {
+            Cell c = this.grid.GetCell(x, y);
+            c.ID = 1;
+            c.NewID = 1;
+        }
+
+
         /// <summary>
         /// edit on asynchronic
         /// </summary>
@@ -126,6 +176,21 @@ namespace MultiscaleModelingProject
             Step(name);
             board.Refresh();
         }
+
+        public async Task NextStepAnsyc(string name, PictureBox board, CancellationToken ct)
+        {
+            await StepAsync(name);
+            board.Invoke(new Action(delegate ()
+            {
+                board.Refresh();
+            }));
+
+            if (ct.IsCancellationRequested)
+            {
+                ct.ThrowIfCancellationRequested();
+            }
+        }
+
 
         public bool Step(string name)
         {

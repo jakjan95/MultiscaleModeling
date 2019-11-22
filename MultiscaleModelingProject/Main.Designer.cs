@@ -45,11 +45,14 @@
             this.BoardHeightNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.BoardWidthLabel = new System.Windows.Forms.Label();
             this.BoardHeightLabel = new System.Windows.Forms.Label();
+            this.InclusionsNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.addInclusionButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Board)).BeginInit();
             this.caGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.caGrainsNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BoardWidthNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BoardHeightNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InclusionsNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // Board
@@ -250,11 +253,35 @@
             this.BoardHeightLabel.TabIndex = 11;
             this.BoardHeightLabel.Text = "Board Height";
             // 
+            // InclusionsNumericUpDown
+            // 
+            this.InclusionsNumericUpDown.Location = new System.Drawing.Point(360, 26);
+            this.InclusionsNumericUpDown.Maximum = new decimal(new int[] {
+            140,
+            0,
+            0,
+            0});
+            this.InclusionsNumericUpDown.Name = "InclusionsNumericUpDown";
+            this.InclusionsNumericUpDown.Size = new System.Drawing.Size(46, 20);
+            this.InclusionsNumericUpDown.TabIndex = 9;
+            // 
+            // addInclusionButton
+            // 
+            this.addInclusionButton.Location = new System.Drawing.Point(412, 25);
+            this.addInclusionButton.Name = "addInclusionButton";
+            this.addInclusionButton.Size = new System.Drawing.Size(86, 23);
+            this.addInclusionButton.TabIndex = 9;
+            this.addInclusionButton.Text = "Add Inclusion";
+            this.addInclusionButton.UseVisualStyleBackColor = true;
+            this.addInclusionButton.Click += new System.EventHandler(this.addInclusionButton_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(662, 624);
+            this.Controls.Add(this.addInclusionButton);
+            this.Controls.Add(this.InclusionsNumericUpDown);
             this.Controls.Add(this.BoardHeightLabel);
             this.Controls.Add(this.BoardWidthLabel);
             this.Controls.Add(this.BoardHeightNumericUpDown);
@@ -272,6 +299,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.caGrainsNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BoardWidthNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BoardHeightNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InclusionsNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -296,6 +324,8 @@
         private System.Windows.Forms.NumericUpDown BoardHeightNumericUpDown;
         private System.Windows.Forms.Label BoardWidthLabel;
         private System.Windows.Forms.Label BoardHeightLabel;
+        private System.Windows.Forms.NumericUpDown InclusionsNumericUpDown;
+        private System.Windows.Forms.Button addInclusionButton;
     }
 }
 
