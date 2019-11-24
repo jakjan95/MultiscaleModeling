@@ -42,6 +42,16 @@ namespace MultiscaleModelingProject
             get { return (int)this.InclusionsNumericUpDown.Value; }
         }
 
+        private int InclusionsMinR
+        {
+            get { return (int)this.minRnumericUpDown.Value; }
+        }
+
+        private int InclusionsMaxR
+        {
+            get { return (int)this.maxRnumericUpDown.Value; }
+        }
+
         #endregion Properties
 
         private Grid grid;
@@ -245,15 +255,17 @@ namespace MultiscaleModelingProject
         private void addInclusionButton_Click(object sender, EventArgs e)
         {
             this.ca.AddRandomInclusions(this.Inclusions);
+            Random rnd = new Random();
 
-            for (int x = 0; x < this.grid.Height; ++x)
+            for (int x = 0; x < this.grid.Height-1; ++x)
             {
-                for (int y = 0; y < this.grid.Width; ++y)
+                for (int y = 0; y < this.grid.Width-1; ++y)
                 {
                     Cell c = this.grid.GetCell(x, y);
-                    if (c.ID == 1)
+                    if (c.ID == 1 && c.NewID ==1 )
                     {
-                        this.ca.AddCircleInclusion(x, y, 5);
+                       int r = rnd.Next(this.InclusionsMinR, this.InclusionsMaxR); 
+                       this.ca.AddCircleInclusion(x, y, r);
                     }
 
                 }

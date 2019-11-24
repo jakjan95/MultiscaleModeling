@@ -102,6 +102,7 @@ namespace MultiscaleModelingProject
                 Cell c;
                 c = this.grid.GetCell(RandomHelper.Next(this.Width), RandomHelper.Next(this.Height));
                 c.ID = 1;
+                c.NewID = 1;
 
             }
         
@@ -114,14 +115,14 @@ namespace MultiscaleModelingProject
             return (x * x) + y * y <= r * r;
         }
 
-        public void AddCircleInclusion(int x, int y, int r)  //bez tego
+        //Rozkminic dlaczego sie tak rozplywaja
+        public void AddCircleInclusion(int x, int y, int r) 
         {
-
-            for(int i = y- r; i<= y+r; i++)
+            for(int i = y - r; i <= y+r; i++)
             {
-                for(int j=x-r; j<=x+r; j++)
+                for(int j= x-r ; j<= x+r ; j++)
                 {
-                    if(isInCircle(r, Math.Abs(y-i), Math.Abs(x-j))  &&i>=0 && j>=0 && this.Width > i && this.Height > j)
+                    if(isInCircle(r, Math.Abs(y-i), Math.Abs(x-j))  && i >= 0 && j>= 0 && this.Width > j && this.Height > i)
                     {
                         this.AddInclusion(i, j);
                     }

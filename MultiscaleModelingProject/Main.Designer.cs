@@ -47,12 +47,18 @@
             this.BoardHeightLabel = new System.Windows.Forms.Label();
             this.InclusionsNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.addInclusionButton = new System.Windows.Forms.Button();
+            this.minRnumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.maxRnumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.inclusionMinRLabel = new System.Windows.Forms.Label();
+            this.inclusionMaxRLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Board)).BeginInit();
             this.caGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.caGrainsNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BoardWidthNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BoardHeightNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InclusionsNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.minRnumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.maxRnumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // Board
@@ -255,7 +261,7 @@
             // 
             // InclusionsNumericUpDown
             // 
-            this.InclusionsNumericUpDown.Location = new System.Drawing.Point(360, 26);
+            this.InclusionsNumericUpDown.Location = new System.Drawing.Point(353, 25);
             this.InclusionsNumericUpDown.Maximum = new decimal(new int[] {
             140,
             0,
@@ -267,7 +273,7 @@
             // 
             // addInclusionButton
             // 
-            this.addInclusionButton.Location = new System.Drawing.Point(412, 25);
+            this.addInclusionButton.Location = new System.Drawing.Point(412, 23);
             this.addInclusionButton.Name = "addInclusionButton";
             this.addInclusionButton.Size = new System.Drawing.Size(86, 23);
             this.addInclusionButton.TabIndex = 9;
@@ -275,11 +281,77 @@
             this.addInclusionButton.UseVisualStyleBackColor = true;
             this.addInclusionButton.Click += new System.EventHandler(this.addInclusionButton_Click);
             // 
+            // minRnumericUpDown
+            // 
+            this.minRnumericUpDown.Location = new System.Drawing.Point(435, 52);
+            this.minRnumericUpDown.Maximum = new decimal(new int[] {
+            40,
+            0,
+            0,
+            0});
+            this.minRnumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.minRnumericUpDown.Name = "minRnumericUpDown";
+            this.minRnumericUpDown.Size = new System.Drawing.Size(46, 20);
+            this.minRnumericUpDown.TabIndex = 12;
+            this.minRnumericUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // maxRnumericUpDown
+            // 
+            this.maxRnumericUpDown.Location = new System.Drawing.Point(435, 80);
+            this.maxRnumericUpDown.Maximum = new decimal(new int[] {
+            40,
+            0,
+            0,
+            0});
+            this.maxRnumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.maxRnumericUpDown.Name = "maxRnumericUpDown";
+            this.maxRnumericUpDown.Size = new System.Drawing.Size(46, 20);
+            this.maxRnumericUpDown.TabIndex = 13;
+            this.maxRnumericUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // inclusionMinRLabel
+            // 
+            this.inclusionMinRLabel.AutoSize = true;
+            this.inclusionMinRLabel.Location = new System.Drawing.Point(350, 54);
+            this.inclusionMinRLabel.Name = "inclusionMinRLabel";
+            this.inclusionMinRLabel.Size = new System.Drawing.Size(82, 13);
+            this.inclusionMinRLabel.TabIndex = 9;
+            this.inclusionMinRLabel.Text = "Inclusion min R:";
+            // 
+            // inclusionMaxRLabel
+            // 
+            this.inclusionMaxRLabel.AutoSize = true;
+            this.inclusionMaxRLabel.Location = new System.Drawing.Point(350, 82);
+            this.inclusionMaxRLabel.Name = "inclusionMaxRLabel";
+            this.inclusionMaxRLabel.Size = new System.Drawing.Size(85, 13);
+            this.inclusionMaxRLabel.TabIndex = 14;
+            this.inclusionMaxRLabel.Text = "Inclusion max R:";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(662, 624);
+            this.Controls.Add(this.inclusionMaxRLabel);
+            this.Controls.Add(this.inclusionMinRLabel);
+            this.Controls.Add(this.maxRnumericUpDown);
+            this.Controls.Add(this.minRnumericUpDown);
             this.Controls.Add(this.addInclusionButton);
             this.Controls.Add(this.InclusionsNumericUpDown);
             this.Controls.Add(this.BoardHeightLabel);
@@ -300,6 +372,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.BoardWidthNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BoardHeightNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.InclusionsNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.minRnumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.maxRnumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -326,6 +400,10 @@
         private System.Windows.Forms.Label BoardHeightLabel;
         private System.Windows.Forms.NumericUpDown InclusionsNumericUpDown;
         private System.Windows.Forms.Button addInclusionButton;
+        private System.Windows.Forms.NumericUpDown minRnumericUpDown;
+        private System.Windows.Forms.NumericUpDown maxRnumericUpDown;
+        private System.Windows.Forms.Label inclusionMinRLabel;
+        private System.Windows.Forms.Label inclusionMaxRLabel;
     }
 }
 
