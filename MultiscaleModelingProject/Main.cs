@@ -254,25 +254,32 @@ namespace MultiscaleModelingProject
 
         private void addInclusionButton_Click(object sender, EventArgs e)
         {
-            this.ca.AddRandomInclusions(this.Inclusions);
-            Random rnd = new Random();
+            this.ca.AddRandomInclusions(this.Inclusions, this.InclusionsMinR, this.InclusionsMaxR);
 
-            for (int x = 0; x < this.grid.Height-1; ++x)
-            {
-                for (int y = 0; y < this.grid.Width-1; ++y)
-                {
-                    Cell c = this.grid.GetCell(x, y);
-                    if (c.ID == 1 && c.NewID ==1 )
-                    {
-                       int r = rnd.Next(this.InclusionsMinR, this.InclusionsMaxR); 
-                       this.ca.AddCircleInclusion(x, y, r);
-                    }
+            //Random rnd = new Random();
+            //for (int x = 0; x < this.grid.Height; x++)
+            //{
+            //    for (int y = 0; y < this.grid.Width; y++)
+            //    {
+            //        Cell c = grid.GetCell(x, y);
 
-                }
+            //        if (c.ID == 1 && c.NewID == 1)
+            //        {
+            //            int r = rnd.Next(this.InclusionsMinR, this.InclusionsMaxR);
+            //            ca.AddCircleInclusion(x, y, r);
+            //            //this.Board.Refresh();
+            //        }
 
-            }
+            //    }
+            //}
 
             this.Board.Refresh();
         }
     }
 }
+
+
+//TO DO:
+//Fix bugs in Inlclusions
+//Upgrade ansyc ;)
+//Add option to load from csv

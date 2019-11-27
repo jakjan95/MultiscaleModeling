@@ -40,7 +40,7 @@ namespace MultiscaleModelingProject
         {
             bool[] usesArr = Enumerable.Repeat(false, MAX_GRAIN_ID).ToArray();
             usesArr[0] = true; // empty
-            usesArr[1] = true; // inclusion
+            //usesArr[1] = true; // inclusion
 
             this.grid.ResetCurrentCellPosition();
 
@@ -81,8 +81,8 @@ namespace MultiscaleModelingProject
                     {
                         c = this.grid.GetCell(RandomHelper.Next(this.Width), RandomHelper.Next(this.Height));
                     } while (c.ID != 0 || c.Selected);
-
-                    c.ID = notUsedIds[i];
+                 // } while (c.ID != 0 || c.Selected || c.ID != 1) ;
+                c.ID = notUsedIds[i];
                 }
 
                 else
@@ -95,45 +95,93 @@ namespace MultiscaleModelingProject
         }
 
 
-        public void AddRandomInclusions(int number)
+        //public void AddRandomInclusions(int number)
+        //{
+        //    for (int i = 0; i < number; ++i)
+        //    {
+        //        Cell c;
+        //        c = this.grid.GetCell(RandomHelper.Next(this.Width-1), RandomHelper.Next(this.Height-1));
+        //        c.ID = 1;
+        //        c.NewID = 1;
+        //    }
+        //}
+
+        // OK
+        //public void AddRandomInclusions(int number, int min_r, int max_r)
+        //{
+        //    for (int i = 0; i < number; i++)
+        //    {
+        //        Cell c;
+        //        c = this.grid.GetCell(RandomHelper.Next(this.Width - 1), RandomHelper.Next(this.Height - 1));
+        //        c.ID = 1;
+        //        c.NewID = 1;
+        //    }
+
+        //    Random rnd = new Random();
+        //    for (int x = 0; x < this.grid.Height; x++)
+        //    {
+        //        for (int y = 0; y < this.grid.Width; y++)
+        //        {
+        //            Cell c = grid.GetCell(x, y);
+
+        //            if (c.ID == 1 && c.NewID == 1)
+        //            {
+        //                int r = rnd.Next(min_r, max_r);
+        //                AddCircleInclusion(x, y, r);
+        //            }
+
+        //        }
+        //    }
+
+        //}
+
+
+
+        public void AddRandomInclusions(int number, int min_r, int max_r)
         {
-            for (int i = 0; i < number; ++i)
+            Random rnd = new Random();
+            for (int i = 0; i < number; i++)
             {
                 Cell c;
-                c = this.grid.GetCell(RandomHelper.Next(this.Width), RandomHelper.Next(this.Height));
+                int temp_x = RandomHelper.Next(this.Width);
+                int temp_y = RandomHelper.Next(this.Height);
+
+                c = this.grid.GetCell(temp_x, temp_y);
                 c.ID = 1;
                 c.NewID = 1;
 
+                int r = rnd.Next(min_r, max_r);
+                AddCircleInclusion(temp_x, temp_y, r);
             }
-        
         }
 
-        // TUTAJ ROZKMINIC
-
+        //???
         private bool isInCircle(int r, int y, int x)
         {
-            return (x * x) + y * y <= r * r;
+            return ((x * x) + (y * y) ) <= r * r;
         }
 
         //Rozkminic dlaczego sie tak rozplywaja
         public void AddCircleInclusion(int x, int y, int r) 
         {
-            for(int i = y - r; i <= y+r; i++)
+            for(int i = y-r; i <= y+r; i++)
             {
-                for(int j= x-r ; j<= x+r ; j++)
+                for (int j = x - r; j <= x + r; j++)
                 {
-                    if(isInCircle(r, Math.Abs(y-i), Math.Abs(x-j))  && i >= 0 && j>= 0 && this.Width > j && this.Height > i)
+
+                    if (isInCircle(r, Math.Abs(y - i), Math.Abs(x - j)) && i >= 0 && j >= 0 && this.Width > j && this.Height > i)
                     {
                         this.AddInclusion(i, j);
                     }
-                }
 
+                }
             }
         }
 
+        //OK
         protected void AddInclusion(int x, int y)
         {
-            Cell c = this.grid.GetCell(x, y);
+            Cell c = grid.GetCell(x, y);
             c.ID = 1;
             c.NewID = 1;
         }
