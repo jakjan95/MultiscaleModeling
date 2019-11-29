@@ -63,9 +63,7 @@ namespace MultiscaleModelingProject
 
         }
 
-        /////CA algorithm :)
-        ///
-
+        //CA algorithm :)
         public void AddRandomGrains(int number)
         {
             int[] notUsedIds = this.GetNotUsedIds();
@@ -81,7 +79,6 @@ namespace MultiscaleModelingProject
                     {
                         c = this.grid.GetCell(RandomHelper.Next(this.Width), RandomHelper.Next(this.Height));
                     } while (c.ID != 0 || c.Selected);
-                 // } while (c.ID != 0 || c.Selected || c.ID != 1) ;
                 c.ID = notUsedIds[i];
                 }
 
@@ -93,48 +90,6 @@ namespace MultiscaleModelingProject
             }
 
         }
-
-
-        //public void AddRandomInclusions(int number)
-        //{
-        //    for (int i = 0; i < number; ++i)
-        //    {
-        //        Cell c;
-        //        c = this.grid.GetCell(RandomHelper.Next(this.Width-1), RandomHelper.Next(this.Height-1));
-        //        c.ID = 1;
-        //        c.NewID = 1;
-        //    }
-        //}
-
-        // OK
-        //public void AddRandomInclusions(int number, int min_r, int max_r)
-        //{
-        //    for (int i = 0; i < number; i++)
-        //    {
-        //        Cell c;
-        //        c = this.grid.GetCell(RandomHelper.Next(this.Width - 1), RandomHelper.Next(this.Height - 1));
-        //        c.ID = 1;
-        //        c.NewID = 1;
-        //    }
-
-        //    Random rnd = new Random();
-        //    for (int x = 0; x < this.grid.Height; x++)
-        //    {
-        //        for (int y = 0; y < this.grid.Width; y++)
-        //        {
-        //            Cell c = grid.GetCell(x, y);
-
-        //            if (c.ID == 1 && c.NewID == 1)
-        //            {
-        //                int r = rnd.Next(min_r, max_r);
-        //                AddCircleInclusion(x, y, r);
-        //            }
-
-        //        }
-        //    }
-
-        //}
-
 
 
         public void AddRandomInclusions(int number, int min_r, int max_r)
@@ -154,14 +109,12 @@ namespace MultiscaleModelingProject
                 AddCircleInclusion(temp_x, temp_y, r);
             }
         }
-
-        //???
+     
         private bool isInCircle(int r, int y, int x)
         {
             return ((x * x) + (y * y) ) <= r * r;
         }
 
-        //Rozkminic dlaczego sie tak rozplywaja
         public void AddCircleInclusion(int x, int y, int r) 
         {
             for(int i = y-r; i <= y+r; i++)
@@ -178,7 +131,6 @@ namespace MultiscaleModelingProject
             }
         }
 
-        //OK
         protected void AddInclusion(int x, int y)
         {
             Cell c = grid.GetCell(x, y);

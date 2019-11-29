@@ -51,6 +51,7 @@
             this.maxRnumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.inclusionMinRLabel = new System.Windows.Forms.Label();
             this.inclusionMaxRLabel = new System.Windows.Forms.Label();
+            this.csvLoadButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Board)).BeginInit();
             this.caGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.caGrainsNumericUpDown)).BeginInit();
@@ -343,11 +344,22 @@
             this.inclusionMaxRLabel.TabIndex = 14;
             this.inclusionMaxRLabel.Text = "Inclusion max R:";
             // 
+            // csvLoadButton
+            // 
+            this.csvLoadButton.Location = new System.Drawing.Point(562, 125);
+            this.csvLoadButton.Name = "csvLoadButton";
+            this.csvLoadButton.Size = new System.Drawing.Size(96, 23);
+            this.csvLoadButton.TabIndex = 15;
+            this.csvLoadButton.Text = "Load from csv";
+            this.csvLoadButton.UseVisualStyleBackColor = true;
+            this.csvLoadButton.Click += new System.EventHandler(this.csvLoadButton_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(662, 624);
+            this.Controls.Add(this.csvLoadButton);
             this.Controls.Add(this.inclusionMaxRLabel);
             this.Controls.Add(this.inclusionMinRLabel);
             this.Controls.Add(this.maxRnumericUpDown);
@@ -404,6 +416,7 @@
         private System.Windows.Forms.NumericUpDown maxRnumericUpDown;
         private System.Windows.Forms.Label inclusionMinRLabel;
         private System.Windows.Forms.Label inclusionMaxRLabel;
+        private System.Windows.Forms.Button csvLoadButton;
     }
 }
 

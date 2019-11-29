@@ -133,29 +133,12 @@ namespace MultiscaleModelingProject
         }
 
 
-        //
-        //
-
-
 
         private void caAddRandomGrainsButton_Click(object sender, EventArgs e)
         {
             this.ca.AddRandomGrains(this.CAGrains);
             this.Board.Refresh();
         }
-
-
-        /// <summary>
-        /// Add possibility to dynamic change state of gridPeriodicCheckBox.
-        /// At this moment in the case to run simulation without periodic boundaries 
-        /// is needed to press restart button before simulation button
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        /// 
-        ////////////////////////////////////////////////////////
-        // For the method that does your long running task...
-
 
         private void caSimulateButton_Click(object sender, EventArgs e)
         {
@@ -244,42 +227,55 @@ namespace MultiscaleModelingProject
                     for (int y = 0; y < this.grid.Width; ++y)
                     {
                         Cell c = this.grid.GetCell(x, y);
-                        file.WriteLine(x + ", " + y + ", " + c.ID);
+                        file.WriteLine(x + "," + y + "," + c.ID);
                     }
                 }
-
-             
             }
         }
 
         private void addInclusionButton_Click(object sender, EventArgs e)
         {
             this.ca.AddRandomInclusions(this.Inclusions, this.InclusionsMinR, this.InclusionsMaxR);
-
-            //Random rnd = new Random();
-            //for (int x = 0; x < this.grid.Height; x++)
-            //{
-            //    for (int y = 0; y < this.grid.Width; y++)
-            //    {
-            //        Cell c = grid.GetCell(x, y);
-
-            //        if (c.ID == 1 && c.NewID == 1)
-            //        {
-            //            int r = rnd.Next(this.InclusionsMinR, this.InclusionsMaxR);
-            //            ca.AddCircleInclusion(x, y, r);
-            //            //this.Board.Refresh();
-            //        }
-
-            //    }
-            //}
-
             this.Board.Refresh();
+        }
+
+        private void csvLoadButton_Click(object sender, EventArgs e)
+        {
+            //string[] lines = System.IO.File.ReadAllLines("board.txt");
+            string path = @"C:\Users\Jakub\source\repos\MultiscaleModeling\MultiscaleModelingProject\bin\Debug\board.txt";
+            string line;
+
+            if (System.IO.File.Exists(path))
+            {
+                System.IO.StreamReader file = null;
+                try
+                {
+                    file = new System.IO.StreamReader(path);
+                    while ((line = file.ReadLine()) != null)
+                    {
+                        String[] coordinates = line.Split(',');
+                        int tmp_x = System.Convert.ToInt32(coordinates[0]);
+                        int tmp_y = System.Convert.ToInt32(coordinates[1]);
+                        int tmp_id = System.Convert.ToInt32(coordinates[2]);
+                        
+                        Cell c = this.grid.GetCell(tmp_x, tmp_y);
+                        c.ID = tmp_id;
+                    }
+                }
+                finally
+                {
+                    if (file != null)
+                        file.Close();
+                }
+            }
+            Console.ReadLine();
+            this.Board.Refresh();
+
         }
     }
 }
 
 
 //TO DO:
-//Fix bugs in Inlclusions
 //Upgrade ansyc ;)
 //Add option to load from csv
