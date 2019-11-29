@@ -144,8 +144,6 @@ namespace MultiscaleModelingProject
         {
 
             var name = caNeighborhoodComboBox.SelectedItem.ToString();
-            //ca.Start(name, Board);
-           // pauseTokenSource = new PauseTokenSource();
             tokenSource = new CancellationTokenSource();
 
             t = Task.Run(async () =>
@@ -176,32 +174,32 @@ namespace MultiscaleModelingProject
             this.SetupBoard();
         }
 
-        private void NextStep_Button_Click(object sender, EventArgs e)
-        {
-            var name = caNeighborhoodComboBox.SelectedItem.ToString();
-            ca.NextStep(name, Board);
-        }
-
-
-
         //private void NextStep_Button_Click(object sender, EventArgs e)
         //{
         //    var name = caNeighborhoodComboBox.SelectedItem.ToString();
-        //    //ca.Start(name, Board);
-        //    tokenSource = new CancellationTokenSource();
-
-        //    t = Task.Run(async () =>
-        //    {
-        //        try
-        //        {
-        //            await ca.StartAsync(name, Board, tokenSource.Token);
-        //        }
-        //        catch (OperationCanceledException)
-        //        {
-        //            Debug.WriteLine($"\n{nameof(OperationCanceledException)} thrown\n");
-        //        }
-        //    }, tokenSource.Token);
+        //    ca.NextStep(name, Board);
         //}
+
+
+
+        private void NextStep_Button_Click(object sender, EventArgs e)
+        {
+            var name = caNeighborhoodComboBox.SelectedItem.ToString();
+            tokenSource = new CancellationTokenSource();
+
+            t = Task.Run(async () =>
+            {
+                try
+                {
+                    await ca.NextStepAns(name, Board, tokenSource.Token);
+                }
+                catch (OperationCanceledException)
+                {
+                    Debug.WriteLine($"\n{nameof(OperationCanceledException)} thrown\n");
+                }
+            }, tokenSource.Token);
+
+        }
 
         private void SaveBitmap_Button_Click(object sender, EventArgs e)
         {
@@ -241,8 +239,8 @@ namespace MultiscaleModelingProject
 
         private void csvLoadButton_Click(object sender, EventArgs e)
         {
-            //string[] lines = System.IO.File.ReadAllLines("board.txt");
-            string path = @"C:\Users\Jakub\source\repos\MultiscaleModeling\MultiscaleModelingProject\bin\Debug\board.txt";
+            //string path = @"C:\Users\Jakub\source\repos\MultiscaleModeling\MultiscaleModelingProject\bin\Debug\board.txt";
+            string path = "board.txt";
             string line;
 
             if (System.IO.File.Exists(path))
@@ -260,6 +258,7 @@ namespace MultiscaleModelingProject
                         
                         Cell c = this.grid.GetCell(tmp_x, tmp_y);
                         c.ID = tmp_id;
+                        c.NewID = tmp_id;
                     }
                 }
                 finally
@@ -277,5 +276,4 @@ namespace MultiscaleModelingProject
 
 
 //TO DO:
-//Upgrade ansyc ;)
-//Add option to load from csv
+//Upgrade ansyc

@@ -180,7 +180,7 @@
             // 
             // ResetButton
             // 
-            this.ResetButton.Location = new System.Drawing.Point(575, 77);
+            this.ResetButton.Location = new System.Drawing.Point(575, 85);
             this.ResetButton.Name = "ResetButton";
             this.ResetButton.Size = new System.Drawing.Size(75, 23);
             this.ResetButton.TabIndex = 3;
@@ -190,7 +190,7 @@
             // 
             // SaveBitmap_Button
             // 
-            this.SaveBitmap_Button.Location = new System.Drawing.Point(554, 12);
+            this.SaveBitmap_Button.Location = new System.Drawing.Point(554, 7);
             this.SaveBitmap_Button.Name = "SaveBitmap_Button";
             this.SaveBitmap_Button.Size = new System.Drawing.Size(96, 23);
             this.SaveBitmap_Button.TabIndex = 9;
@@ -200,7 +200,7 @@
             // 
             // csvSaveButton
             // 
-            this.csvSaveButton.Location = new System.Drawing.Point(554, 41);
+            this.csvSaveButton.Location = new System.Drawing.Point(554, 33);
             this.csvSaveButton.Name = "csvSaveButton";
             this.csvSaveButton.Size = new System.Drawing.Size(96, 23);
             this.csvSaveButton.TabIndex = 10;
@@ -346,7 +346,7 @@
             // 
             // csvLoadButton
             // 
-            this.csvLoadButton.Location = new System.Drawing.Point(562, 125);
+            this.csvLoadButton.Location = new System.Drawing.Point(554, 58);
             this.csvLoadButton.Name = "csvLoadButton";
             this.csvLoadButton.Size = new System.Drawing.Size(96, 23);
             this.csvLoadButton.TabIndex = 15;

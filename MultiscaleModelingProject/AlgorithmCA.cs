@@ -172,15 +172,10 @@ namespace MultiscaleModelingProject
             }
         }
 
-        public void NextStep(string name, PictureBox board)
-        {
-            Step(name);
-            board.Refresh();
-        }
-
-        public async Task NextStepAnsyc(string name, PictureBox board, CancellationToken ct)
+        public async Task NextStepAns(string name, PictureBox board, CancellationToken ct)
         {
             await StepAsync(name);
+            //board.Refresh();
             board.Invoke(new Action(delegate ()
             {
                 board.Refresh();
@@ -191,6 +186,23 @@ namespace MultiscaleModelingProject
                 ct.ThrowIfCancellationRequested();
             }
         }
+
+        public void NextStep(string name, PictureBox board)
+        {
+            Step(name);
+            board.Refresh();
+        }
+
+        //public async Task NextStepAnsyc(string name, PictureBox board, CancellationToken ct)
+        //{
+        //    await StepAsync(name);
+        //    board.Refresh();
+
+        //    if (ct.IsCancellationRequested)
+        //    {
+        //        ct.ThrowIfCancellationRequested();
+        //    }
+        //}
 
 
         public bool Step(string name)
