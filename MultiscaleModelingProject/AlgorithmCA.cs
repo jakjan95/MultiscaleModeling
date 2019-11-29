@@ -144,13 +144,13 @@ namespace MultiscaleModelingProject
         /// </summary>
         /// <param name="name"></param>
         /// <param name="board"></param>
-        public void Start(string name, PictureBox board)
-        {
-            while (Step(name))
-            {
-                board.Refresh();
-            }
-        }
+        //public void Start(string name, PictureBox board)
+        //{
+        //    while (Step(name))
+        //    {
+        //        board.Refresh();
+        //    }
+        //}
 
         /// <summary>
         /// edit on asynchronic
@@ -175,7 +175,6 @@ namespace MultiscaleModelingProject
         public async Task NextStepAns(string name, PictureBox board, CancellationToken ct)
         {
             await StepAsync(name);
-            //board.Refresh();
             board.Invoke(new Action(delegate ()
             {
                 board.Refresh();
@@ -187,64 +186,52 @@ namespace MultiscaleModelingProject
             }
         }
 
-        public void NextStep(string name, PictureBox board)
-        {
-            Step(name);
-            board.Refresh();
-        }
-
-        //public async Task NextStepAnsyc(string name, PictureBox board, CancellationToken ct)
+        //public void NextStep(string name, PictureBox board)
         //{
-        //    await StepAsync(name);
+        //    Step(name);
         //    board.Refresh();
-
-        //    if (ct.IsCancellationRequested)
-        //    {
-        //        ct.ThrowIfCancellationRequested();
-        //    }
         //}
 
+        //public bool Step(string name)
+        //{
+        //    int changes = 0;
+        //    this.grid.ResetCurrentCellPosition();
 
-        public bool Step(string name)
-        {
-            int changes = 0;
-            this.grid.ResetCurrentCellPosition();
-
-            if (name.Equals("Moore"))
-                f += Moore;
-            else if (name.Equals("Von Neumann"))
-                f += VanNeuman;
-            else if (name.Equals("Left Pentagonal"))
-                f += LeftPentagonal;
-            else if (name.Equals("Right Pentagonal"))
-                f += RightPentagonal;
-            else if (name.Equals("Left Hexagonal"))
-                f += LeftHexagonal;
-            else if (name.Equals("Right Hexagonal"))
-                f += RightHexagonal;
+        //    if (name.Equals("Moore"))
+        //        f += Moore;
+        //    else if (name.Equals("Von Neumann"))
+        //        f += VanNeuman;
+        //    else if (name.Equals("Left Pentagonal"))
+        //        f += LeftPentagonal;
+        //    else if (name.Equals("Right Pentagonal"))
+        //        f += RightPentagonal;
+        //    else if (name.Equals("Left Hexagonal"))
+        //        f += LeftHexagonal;
+        //    else if (name.Equals("Right Hexagonal"))
+        //        f += RightHexagonal;
 
 
-            //Iterate cells line by line
-            do
-            {
-                //Grains growth only on empty cell
-                if (this.grid.CurrentCell.ID == 0)
-                {
-                    if (f(this.grid.CurrentCell))
-                    {
-                        ++changes;
-                    }
-                }
-            } while (this.grid.Next());
+        //    //Iterate cells line by line
+        //    do
+        //    {
+        //        //Grains growth only on empty cell
+        //        if (this.grid.CurrentCell.ID == 0)
+        //        {
+        //            if (f(this.grid.CurrentCell))
+        //            {
+        //                ++changes;
+        //            }
+        //        }
+        //    } while (this.grid.Next());
 
-            if (changes > 0)
-            {
-                //Copying values
-                this.grid.CopyNewIDtoID();
-                return true;
-            }
-            return false;
-        }
+        //    if (changes > 0)
+        //    {
+        //        //Copying values
+        //        this.grid.CopyNewIDtoID();
+        //        return true;
+        //    }
+        //    return false;
+        //}
 
         public async Task<bool> StepAsync(string name)
         {

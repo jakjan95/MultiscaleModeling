@@ -142,10 +142,10 @@ namespace MultiscaleModelingProject
 
         private void caSimulateButton_Click(object sender, EventArgs e)
         {
-
+            
             var name = caNeighborhoodComboBox.SelectedItem.ToString();
             tokenSource = new CancellationTokenSource();
-
+            
             t = Task.Run(async () =>
             {
                 try
@@ -186,18 +186,7 @@ namespace MultiscaleModelingProject
         {
             var name = caNeighborhoodComboBox.SelectedItem.ToString();
             tokenSource = new CancellationTokenSource();
-
-            t = Task.Run(async () =>
-            {
-                try
-                {
-                    await ca.NextStepAns(name, Board, tokenSource.Token);
-                }
-                catch (OperationCanceledException)
-                {
-                    Debug.WriteLine($"\n{nameof(OperationCanceledException)} thrown\n");
-                }
-            }, tokenSource.Token);
+            t = Task.Run(async () => await ca.NextStepAns(name, Board, tokenSource.Token), tokenSource.Token);
 
         }
 
@@ -217,7 +206,6 @@ namespace MultiscaleModelingProject
         {
             string filepath = "board.txt";
             System.IO.File.WriteAllBytes(filepath, new byte[0]);
-            //using(System.IO.StreamWriter file = new System.IO.StreamWriter (@filepath, true))
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(@filepath, true))
             {
                 for (int x = 0; x < this.grid.Height; ++x)
@@ -239,7 +227,6 @@ namespace MultiscaleModelingProject
 
         private void csvLoadButton_Click(object sender, EventArgs e)
         {
-            //string path = @"C:\Users\Jakub\source\repos\MultiscaleModeling\MultiscaleModelingProject\bin\Debug\board.txt";
             string path = "board.txt";
             string line;
 
