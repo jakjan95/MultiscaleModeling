@@ -52,6 +52,11 @@ namespace MultiscaleModelingProject
             get { return (int)this.maxRnumericUpDown.Value; }
         }
 
+        private int Propability
+        {
+            get { return (int)this.GBCnumericUpDown.Value; }
+        }
+
         #endregion Properties
 
         private Grid grid;
@@ -103,7 +108,6 @@ namespace MultiscaleModelingProject
         private void SetupBrushes()
         {
             this.brushes = new List<Brush>();
-
             this.brushes.Add(Brushes.Black);
 
             foreach (PropertyInfo pf in typeof(Brushes).GetProperties().Where(p => p.Name != "Black"))
@@ -142,7 +146,7 @@ namespace MultiscaleModelingProject
 
         private void caSimulateButton_Click(object sender, EventArgs e)
         {
-            
+             
             var name = caNeighborhoodComboBox.SelectedItem.ToString();
             tokenSource = new CancellationTokenSource();
             
@@ -258,9 +262,23 @@ namespace MultiscaleModelingProject
             this.Board.Refresh();
 
         }
+
+        private void GBCnextStep_Click(object sender, EventArgs e)
+        {
+            int chance = this.Propability;
+            this.ca.Step_GBC(chance);
+            Board.Refresh();
+        }
+
+        private void GBCsimulate_Click(object sender, EventArgs e)
+        {
+            int chance = this.Propability;
+            while (this.ca.Step_GBC(chance))
+            {
+                Board.Refresh();
+            }   
+        }
+
     }
 }
 
-
-//TO DO:
-//Upgrade ansyc

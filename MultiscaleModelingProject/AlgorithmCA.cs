@@ -18,7 +18,7 @@ namespace MultiscaleModelingProject
         protected int? idForSelectedGrain;
         private delegate bool ChooseFunction(Cell cell);
 
-        private ChooseFunction f;
+        private ChooseFunction selectedNeighborhood;
 
 
         public Grid Grid
@@ -91,7 +91,6 @@ namespace MultiscaleModelingProject
 
         }
 
-
         public void AddRandomInclusions(int number, int min_r, int max_r)
         {
             Random rnd = new Random();
@@ -138,7 +137,6 @@ namespace MultiscaleModelingProject
             c.NewID = 1;
         }
 
-
         /// <summary>
         /// edit on asynchronic
         /// </summary>
@@ -157,9 +155,23 @@ namespace MultiscaleModelingProject
         /// </summary>
         /// <param name="name"></param>
         /// <param name="board"></param>
+        /// 
+
         public async Task StartAsync(string name, PictureBox board, CancellationToken ct)
         {
-            while (await StepAsync(name))
+            if (name.Equals("Moore"))
+                selectedNeighborhood = Moore;
+            else if (name.Equals("Von Neumann"))
+                selectedNeighborhood = VanNeuman;
+            else if (name.Equals("Left Pentagonal"))
+                selectedNeighborhood = LeftPentagonal;
+            else if (name.Equals("Right Pentagonal"))
+                selectedNeighborhood = RightPentagonal;
+            else if (name.Equals("Left Hexagonal"))
+                selectedNeighborhood = LeftHexagonal;
+            else if (name.Equals("Right Hexagonal"))
+                selectedNeighborhood = RightHexagonal;
+            while (await StepAsync())
             {
                 board.Invoke(new Action(delegate ()
                 {
@@ -174,7 +186,19 @@ namespace MultiscaleModelingProject
 
         public async Task NextStepAns(string name, PictureBox board, CancellationToken ct)
         {
-            await StepAsync(name);
+            if (name.Equals("Moore"))
+                selectedNeighborhood = Moore;
+            else if (name.Equals("Von Neumann"))
+                selectedNeighborhood = VanNeuman;
+            else if (name.Equals("Left Pentagonal"))
+                selectedNeighborhood = LeftPentagonal;
+            else if (name.Equals("Right Pentagonal"))
+                selectedNeighborhood = RightPentagonal;
+            else if (name.Equals("Left Hexagonal"))
+                selectedNeighborhood = LeftHexagonal;
+            else if (name.Equals("Right Hexagonal"))
+                selectedNeighborhood = RightHexagonal;
+            await StepAsync();
             board.Invoke(new Action(delegate ()
             {
                 board.Refresh();
@@ -186,79 +210,17 @@ namespace MultiscaleModelingProject
             }
         }
 
-        //public void NextStep(string name, PictureBox board)
-        //{
-        //    Step(name);
-        //    board.Refresh();
-        //}
-
-        //public bool Step(string name)
-        //{
-        //    int changes = 0;
-        //    this.grid.ResetCurrentCellPosition();
-
-        //    if (name.Equals("Moore"))
-        //        f += Moore;
-        //    else if (name.Equals("Von Neumann"))
-        //        f += VanNeuman;
-        //    else if (name.Equals("Left Pentagonal"))
-        //        f += LeftPentagonal;
-        //    else if (name.Equals("Right Pentagonal"))
-        //        f += RightPentagonal;
-        //    else if (name.Equals("Left Hexagonal"))
-        //        f += LeftHexagonal;
-        //    else if (name.Equals("Right Hexagonal"))
-        //        f += RightHexagonal;
-
-
-        //    //Iterate cells line by line
-        //    do
-        //    {
-        //        //Grains growth only on empty cell
-        //        if (this.grid.CurrentCell.ID == 0)
-        //        {
-        //            if (f(this.grid.CurrentCell))
-        //            {
-        //                ++changes;
-        //            }
-        //        }
-        //    } while (this.grid.Next());
-
-        //    if (changes > 0)
-        //    {
-        //        //Copying values
-        //        this.grid.CopyNewIDtoID();
-        //        return true;
-        //    }
-        //    return false;
-        //}
-
-        public async Task<bool> StepAsync(string name)
+        public async Task<bool> StepAsync()
         {
             int changes = 0;
             grid.ResetCurrentCellPosition();
-
-            if (name.Equals("Moore"))
-                f += Moore;
-            else if (name.Equals("Von Neumann"))
-                f += VanNeuman;
-            else if (name.Equals("Left Pentagonal"))
-                f += LeftPentagonal;
-            else if (name.Equals("Right Pentagonal"))
-                f += RightPentagonal;
-            else if (name.Equals("Left Hexagonal"))
-                f += LeftHexagonal;
-            else if (name.Equals("Right Hexagonal"))
-                f += RightHexagonal;
-
-
             //Iterate cells line by line
             do
             {
                 //Grains growth only on empty cell
                 if (grid.CurrentCell.ID == 0)
                 {
-                    if (f(grid.CurrentCell))
+                    if (selectedNeighborhood(grid.CurrentCell))
                     {
                         ++changes;
                     }
@@ -273,6 +235,121 @@ namespace MultiscaleModelingProject
             }
             return false;
         }
+
+
+        public bool Step_GBC(int propability)
+        {
+
+            Random rnd = new Random();
+            int changes = 0;
+            this.grid.ResetCurrentCellPosition();
+
+            //Iterate cells line by line
+            do
+            {
+                //Grains growth only on empty cell
+                if (this.grid.CurrentCell.ID == 0)
+                {
+                    //Check Rule 1
+                    int id = -1;
+                    int max = -1;
+                    var x = grid.CurrentCell.MoorNeighborhood.GroupBy(a => a.ID).Select(a => new { Id = a.Key, Value = a.Count() }).ToList();
+                    for (int i = 0; i < x.Count; i++)
+                    {
+                        if (x[i].Id == 0 || x[i].Id == 1)
+                            continue;
+                        if (x[i].Value > max)
+                        {
+                            id = x[i].Id;
+                            max = x[i].Value;
+                        }
+                    }
+                    if (max >= 5 && id > 1)
+                    {
+                        ++changes;
+                        grid.CurrentCell.NewID = id;
+                        continue;
+                    }
+
+
+                    //Check Rule 2
+                    id = -1;
+                    max = -1;
+                    x = grid.CurrentCell.VonNeumannNeighborhood.GroupBy(a => a.ID).Select(a => new { Id = a.Key, Value = a.Count() }).ToList();
+                    for (int i = 0; i < x.Count; i++)
+                    {
+                        if (x[i].Id == 0 || x[i].Id == 1)
+                            continue;
+                        if (x[i].Value > max)
+                        {
+                            id = x[i].Id;
+                            max = x[i].Value;
+                        }
+                    }
+                    if (max >= 3 && id > 1)
+                    {
+                        ++changes;
+                        grid.CurrentCell.NewID = id;
+                        continue;
+                    }
+
+
+                    //Check Rule 3
+                    id = -1;
+                    max = -1;
+                    x = grid.CurrentCell.FurtherMooreNeighborhood.GroupBy(a => a.ID).Select(a => new { Id = a.Key, Value = a.Count() }).ToList();
+                    for (int i = 0; i < x.Count; i++)
+                    {
+                        if (x[i].Id == 0 || x[i].Id == 1)
+                            continue;
+                        if (x[i].Value > max)
+                        {
+                            id = x[i].Id;
+                            max = x[i].Value;
+                        }
+                    }
+                    if (max >= 3 && id > 1)
+                    {
+                        ++changes;
+                        grid.CurrentCell.NewID = id;
+                        continue;
+                    }
+
+                    //Check Rule 4
+
+                    id = -1;
+                    max = -1;
+                    x = grid.CurrentCell.MoorNeighborhood.GroupBy(a => a.ID).Select(a => new { Id = a.Key, Value = a.Count() }).ToList();
+                    for (int i = 0; i < x.Count; i++)
+                    {
+                        if (x[i].Id == 0 || x[i].Id == 1)
+                            continue;
+                        if (x[i].Value > max)
+                        {
+                            id = x[i].Id;
+                            max = x[i].Value;
+                        }
+                    }
+                    int number = rnd.Next(0, 100);
+                    if (id > 1 && number < propability)
+                    {
+                        ++changes;
+                        grid.CurrentCell.NewID = id;
+                    }
+
+                }
+            } while (this.grid.Next());
+
+            if (changes > 0)
+            {
+                //Copying values
+                this.grid.CopyNewIDtoID();
+                return true;
+            }
+            return false;
+        }
+        //======================================================================
+
 
         //For Moore
         protected bool Moore(Cell c)
@@ -352,7 +429,6 @@ namespace MultiscaleModelingProject
             return false;
         }
 
-        //
         protected CounterReturn MooreMostCommonCell(Cell c)
         {
             Counter counter = new Counter();
@@ -364,45 +440,35 @@ namespace MultiscaleModelingProject
         protected CounterReturn VanNeumanMostCommonCell(Cell c)
         {
             Counter counter = new Counter();
-
             counter.AddCells(c.VonNeumannNeighborhood);
-
             return counter.MostCommonID;
         }
 
         protected CounterReturn LeftPentagonalMostCommonCell(Cell c)
         {
             Counter counter = new Counter();
-
             counter.AddCells(c.LeftPentagonalNeighborhood);
-
             return counter.MostCommonID;
         }
 
         protected CounterReturn RightPentagonalMostCommonCell(Cell c)
         {
             Counter counter = new Counter();
-
             counter.AddCells(c.RightPentagonalNeighborhood);
-
             return counter.MostCommonID;
         }
 
         protected CounterReturn LeftHexagonalMostCommonCell(Cell c)
         {
             Counter counter = new Counter();
-
             counter.AddCells(c.LeftHexagonalNeighborhood);
-
             return counter.MostCommonID;
         }
 
         protected CounterReturn RightHexagonalCommonCell(Cell c)
         {
             Counter counter = new Counter();
-
             counter.AddCells(c.RightHexagonalNeighborhood);
-
             return counter.MostCommonID;
         }
     }

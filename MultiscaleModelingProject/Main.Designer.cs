@@ -52,6 +52,13 @@
             this.inclusionMinRLabel = new System.Windows.Forms.Label();
             this.inclusionMaxRLabel = new System.Windows.Forms.Label();
             this.csvLoadButton = new System.Windows.Forms.Button();
+            this.GBCgroupBox = new System.Windows.Forms.GroupBox();
+            this.GBCnextStep = new System.Windows.Forms.Button();
+            this.GBCnumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.GBCsimulate = new System.Windows.Forms.Button();
+            this.GBClabel = new System.Windows.Forms.Label();
+            this.InclusiongroupBox1 = new System.Windows.Forms.GroupBox();
+            this.BoardgroupBox = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.Board)).BeginInit();
             this.caGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.caGrainsNumericUpDown)).BeginInit();
@@ -60,6 +67,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.InclusionsNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minRnumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxRnumericUpDown)).BeginInit();
+            this.GBCgroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GBCnumericUpDown)).BeginInit();
+            this.InclusiongroupBox1.SuspendLayout();
+            this.BoardgroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // Board
@@ -92,7 +103,7 @@
             this.caGroupBox.Controls.Add(this.caAddRandomGrainsButton);
             this.caGroupBox.Controls.Add(this.caGrainsNumericUpDown);
             this.caGroupBox.Controls.Add(this.caSimulateButton);
-            this.caGroupBox.Location = new System.Drawing.Point(87, 10);
+            this.caGroupBox.Location = new System.Drawing.Point(96, 10);
             this.caGroupBox.Name = "caGroupBox";
             this.caGroupBox.Size = new System.Drawing.Size(254, 100);
             this.caGroupBox.TabIndex = 2;
@@ -180,7 +191,7 @@
             // 
             // ResetButton
             // 
-            this.ResetButton.Location = new System.Drawing.Point(575, 85);
+            this.ResetButton.Location = new System.Drawing.Point(575, 196);
             this.ResetButton.Name = "ResetButton";
             this.ResetButton.Size = new System.Drawing.Size(75, 23);
             this.ResetButton.TabIndex = 3;
@@ -190,7 +201,7 @@
             // 
             // SaveBitmap_Button
             // 
-            this.SaveBitmap_Button.Location = new System.Drawing.Point(554, 7);
+            this.SaveBitmap_Button.Location = new System.Drawing.Point(562, 116);
             this.SaveBitmap_Button.Name = "SaveBitmap_Button";
             this.SaveBitmap_Button.Size = new System.Drawing.Size(96, 23);
             this.SaveBitmap_Button.TabIndex = 9;
@@ -200,7 +211,7 @@
             // 
             // csvSaveButton
             // 
-            this.csvSaveButton.Location = new System.Drawing.Point(554, 33);
+            this.csvSaveButton.Location = new System.Drawing.Point(562, 142);
             this.csvSaveButton.Name = "csvSaveButton";
             this.csvSaveButton.Size = new System.Drawing.Size(96, 23);
             this.csvSaveButton.TabIndex = 10;
@@ -210,7 +221,7 @@
             // 
             // BoardWidthNumericUpDown
             // 
-            this.BoardWidthNumericUpDown.Location = new System.Drawing.Point(15, 28);
+            this.BoardWidthNumericUpDown.Location = new System.Drawing.Point(36, 16);
             this.BoardWidthNumericUpDown.Maximum = new decimal(new int[] {
             500,
             0,
@@ -227,7 +238,7 @@
             // 
             // BoardHeightNumericUpDown
             // 
-            this.BoardHeightNumericUpDown.Location = new System.Drawing.Point(15, 77);
+            this.BoardHeightNumericUpDown.Location = new System.Drawing.Point(38, 55);
             this.BoardHeightNumericUpDown.Maximum = new decimal(new int[] {
             500,
             0,
@@ -245,24 +256,24 @@
             // BoardWidthLabel
             // 
             this.BoardWidthLabel.AutoSize = true;
-            this.BoardWidthLabel.Location = new System.Drawing.Point(12, 12);
+            this.BoardWidthLabel.Location = new System.Drawing.Point(3, 18);
             this.BoardWidthLabel.Name = "BoardWidthLabel";
-            this.BoardWidthLabel.Size = new System.Drawing.Size(66, 13);
+            this.BoardWidthLabel.Size = new System.Drawing.Size(35, 13);
             this.BoardWidthLabel.TabIndex = 9;
-            this.BoardWidthLabel.Text = "Board Width";
+            this.BoardWidthLabel.Text = "Width";
             // 
             // BoardHeightLabel
             // 
             this.BoardHeightLabel.AutoSize = true;
-            this.BoardHeightLabel.Location = new System.Drawing.Point(12, 60);
+            this.BoardHeightLabel.Location = new System.Drawing.Point(3, 57);
             this.BoardHeightLabel.Name = "BoardHeightLabel";
-            this.BoardHeightLabel.Size = new System.Drawing.Size(69, 13);
+            this.BoardHeightLabel.Size = new System.Drawing.Size(38, 13);
             this.BoardHeightLabel.TabIndex = 11;
-            this.BoardHeightLabel.Text = "Board Height";
+            this.BoardHeightLabel.Text = "Height";
             // 
             // InclusionsNumericUpDown
             // 
-            this.InclusionsNumericUpDown.Location = new System.Drawing.Point(353, 25);
+            this.InclusionsNumericUpDown.Location = new System.Drawing.Point(10, 19);
             this.InclusionsNumericUpDown.Maximum = new decimal(new int[] {
             140,
             0,
@@ -274,17 +285,17 @@
             // 
             // addInclusionButton
             // 
-            this.addInclusionButton.Location = new System.Drawing.Point(412, 23);
+            this.addInclusionButton.Location = new System.Drawing.Point(68, 16);
             this.addInclusionButton.Name = "addInclusionButton";
-            this.addInclusionButton.Size = new System.Drawing.Size(86, 23);
+            this.addInclusionButton.Size = new System.Drawing.Size(59, 23);
             this.addInclusionButton.TabIndex = 9;
-            this.addInclusionButton.Text = "Add Inclusion";
+            this.addInclusionButton.Text = "Add";
             this.addInclusionButton.UseVisualStyleBackColor = true;
             this.addInclusionButton.Click += new System.EventHandler(this.addInclusionButton_Click);
             // 
             // minRnumericUpDown
             // 
-            this.minRnumericUpDown.Location = new System.Drawing.Point(435, 52);
+            this.minRnumericUpDown.Location = new System.Drawing.Point(72, 43);
             this.minRnumericUpDown.Maximum = new decimal(new int[] {
             40,
             0,
@@ -306,7 +317,7 @@
             // 
             // maxRnumericUpDown
             // 
-            this.maxRnumericUpDown.Location = new System.Drawing.Point(435, 80);
+            this.maxRnumericUpDown.Location = new System.Drawing.Point(72, 72);
             this.maxRnumericUpDown.Maximum = new decimal(new int[] {
             40,
             0,
@@ -329,24 +340,25 @@
             // inclusionMinRLabel
             // 
             this.inclusionMinRLabel.AutoSize = true;
-            this.inclusionMinRLabel.Location = new System.Drawing.Point(350, 54);
+            this.inclusionMinRLabel.Location = new System.Drawing.Point(7, 48);
             this.inclusionMinRLabel.Name = "inclusionMinRLabel";
-            this.inclusionMinRLabel.Size = new System.Drawing.Size(82, 13);
+            this.inclusionMinRLabel.Size = new System.Drawing.Size(56, 13);
             this.inclusionMinRLabel.TabIndex = 9;
-            this.inclusionMinRLabel.Text = "Inclusion min R:";
+            this.inclusionMinRLabel.Text = "Minimal R:";
             // 
             // inclusionMaxRLabel
             // 
             this.inclusionMaxRLabel.AutoSize = true;
-            this.inclusionMaxRLabel.Location = new System.Drawing.Point(350, 82);
+            this.inclusionMaxRLabel.Location = new System.Drawing.Point(7, 76);
             this.inclusionMaxRLabel.Name = "inclusionMaxRLabel";
-            this.inclusionMaxRLabel.Size = new System.Drawing.Size(85, 13);
+            this.inclusionMaxRLabel.Size = new System.Drawing.Size(59, 13);
             this.inclusionMaxRLabel.TabIndex = 14;
-            this.inclusionMaxRLabel.Text = "Inclusion max R:";
+            this.inclusionMaxRLabel.Text = "Maximal R:";
+            this.inclusionMaxRLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // csvLoadButton
             // 
-            this.csvLoadButton.Location = new System.Drawing.Point(554, 58);
+            this.csvLoadButton.Location = new System.Drawing.Point(562, 167);
             this.csvLoadButton.Name = "csvLoadButton";
             this.csvLoadButton.Size = new System.Drawing.Size(96, 23);
             this.csvLoadButton.TabIndex = 15;
@@ -354,22 +366,97 @@
             this.csvLoadButton.UseVisualStyleBackColor = true;
             this.csvLoadButton.Click += new System.EventHandler(this.csvLoadButton_Click);
             // 
+            // GBCgroupBox
+            // 
+            this.GBCgroupBox.Controls.Add(this.GBClabel);
+            this.GBCgroupBox.Controls.Add(this.GBCnextStep);
+            this.GBCgroupBox.Controls.Add(this.GBCnumericUpDown);
+            this.GBCgroupBox.Controls.Add(this.GBCsimulate);
+            this.GBCgroupBox.Location = new System.Drawing.Point(495, 17);
+            this.GBCgroupBox.Name = "GBCgroupBox";
+            this.GBCgroupBox.Size = new System.Drawing.Size(163, 88);
+            this.GBCgroupBox.TabIndex = 16;
+            this.GBCgroupBox.TabStop = false;
+            this.GBCgroupBox.Text = "GBC";
+            // 
+            // GBCnextStep
+            // 
+            this.GBCnextStep.Location = new System.Drawing.Point(81, 40);
+            this.GBCnextStep.Name = "GBCnextStep";
+            this.GBCnextStep.Size = new System.Drawing.Size(75, 23);
+            this.GBCnextStep.TabIndex = 8;
+            this.GBCnextStep.Text = "Next Step";
+            this.GBCnextStep.UseVisualStyleBackColor = true;
+            this.GBCnextStep.Click += new System.EventHandler(this.GBCnextStep_Click);
+            // 
+            // GBCnumericUpDown
+            // 
+            this.GBCnumericUpDown.Location = new System.Drawing.Point(17, 32);
+            this.GBCnumericUpDown.Name = "GBCnumericUpDown";
+            this.GBCnumericUpDown.Size = new System.Drawing.Size(46, 20);
+            this.GBCnumericUpDown.TabIndex = 2;
+            this.GBCnumericUpDown.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            // 
+            // GBCsimulate
+            // 
+            this.GBCsimulate.Location = new System.Drawing.Point(81, 11);
+            this.GBCsimulate.Name = "GBCsimulate";
+            this.GBCsimulate.Size = new System.Drawing.Size(75, 23);
+            this.GBCsimulate.TabIndex = 1;
+            this.GBCsimulate.Text = "Simulate";
+            this.GBCsimulate.UseVisualStyleBackColor = true;
+            this.GBCsimulate.Click += new System.EventHandler(this.GBCsimulate_Click);
+            // 
+            // GBClabel
+            // 
+            this.GBClabel.AutoSize = true;
+            this.GBClabel.Location = new System.Drawing.Point(1, 16);
+            this.GBClabel.Name = "GBClabel";
+            this.GBClabel.Size = new System.Drawing.Size(72, 13);
+            this.GBClabel.TabIndex = 9;
+            this.GBClabel.Text = "Propability [%]";
+            // 
+            // InclusiongroupBox1
+            // 
+            this.InclusiongroupBox1.Controls.Add(this.InclusionsNumericUpDown);
+            this.InclusiongroupBox1.Controls.Add(this.addInclusionButton);
+            this.InclusiongroupBox1.Controls.Add(this.minRnumericUpDown);
+            this.InclusiongroupBox1.Controls.Add(this.inclusionMaxRLabel);
+            this.InclusiongroupBox1.Controls.Add(this.maxRnumericUpDown);
+            this.InclusiongroupBox1.Controls.Add(this.inclusionMinRLabel);
+            this.InclusiongroupBox1.Location = new System.Drawing.Point(356, 10);
+            this.InclusiongroupBox1.Name = "InclusiongroupBox1";
+            this.InclusiongroupBox1.Size = new System.Drawing.Size(133, 100);
+            this.InclusiongroupBox1.TabIndex = 17;
+            this.InclusiongroupBox1.TabStop = false;
+            this.InclusiongroupBox1.Text = "Inclusions";
+            // 
+            // BoardgroupBox
+            // 
+            this.BoardgroupBox.Controls.Add(this.BoardHeightNumericUpDown);
+            this.BoardgroupBox.Controls.Add(this.BoardWidthNumericUpDown);
+            this.BoardgroupBox.Controls.Add(this.BoardWidthLabel);
+            this.BoardgroupBox.Controls.Add(this.BoardHeightLabel);
+            this.BoardgroupBox.Location = new System.Drawing.Point(4, 17);
+            this.BoardgroupBox.Name = "BoardgroupBox";
+            this.BoardgroupBox.Size = new System.Drawing.Size(90, 91);
+            this.BoardgroupBox.TabIndex = 18;
+            this.BoardgroupBox.TabStop = false;
+            this.BoardgroupBox.Text = "Board";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(662, 624);
+            this.Controls.Add(this.BoardgroupBox);
+            this.Controls.Add(this.InclusiongroupBox1);
+            this.Controls.Add(this.GBCgroupBox);
             this.Controls.Add(this.csvLoadButton);
-            this.Controls.Add(this.inclusionMaxRLabel);
-            this.Controls.Add(this.inclusionMinRLabel);
-            this.Controls.Add(this.maxRnumericUpDown);
-            this.Controls.Add(this.minRnumericUpDown);
-            this.Controls.Add(this.addInclusionButton);
-            this.Controls.Add(this.InclusionsNumericUpDown);
-            this.Controls.Add(this.BoardHeightLabel);
-            this.Controls.Add(this.BoardWidthLabel);
-            this.Controls.Add(this.BoardHeightNumericUpDown);
-            this.Controls.Add(this.BoardWidthNumericUpDown);
             this.Controls.Add(this.csvSaveButton);
             this.Controls.Add(this.SaveBitmap_Button);
             this.Controls.Add(this.ResetButton);
@@ -386,8 +473,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.InclusionsNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.minRnumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxRnumericUpDown)).EndInit();
+            this.GBCgroupBox.ResumeLayout(false);
+            this.GBCgroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GBCnumericUpDown)).EndInit();
+            this.InclusiongroupBox1.ResumeLayout(false);
+            this.InclusiongroupBox1.PerformLayout();
+            this.BoardgroupBox.ResumeLayout(false);
+            this.BoardgroupBox.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -417,6 +510,13 @@
         private System.Windows.Forms.Label inclusionMinRLabel;
         private System.Windows.Forms.Label inclusionMaxRLabel;
         private System.Windows.Forms.Button csvLoadButton;
+        private System.Windows.Forms.GroupBox GBCgroupBox;
+        private System.Windows.Forms.Label GBClabel;
+        private System.Windows.Forms.Button GBCnextStep;
+        private System.Windows.Forms.NumericUpDown GBCnumericUpDown;
+        private System.Windows.Forms.Button GBCsimulate;
+        private System.Windows.Forms.GroupBox InclusiongroupBox1;
+        private System.Windows.Forms.GroupBox BoardgroupBox;
     }
 }
 
