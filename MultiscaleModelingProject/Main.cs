@@ -57,6 +57,11 @@ namespace MultiscaleModelingProject
             get { return (int)this.GBCnumericUpDown.Value; }
         }
 
+        private bool DPcheck
+        {
+            get { return this.DPcheckBox.Checked; }
+        }
+
         #endregion Properties
 
         private Grid grid;
@@ -80,12 +85,12 @@ namespace MultiscaleModelingProject
             this.SetupUI();
             this.SetupBrushes();
             this.SetupGrid();
+            this.SetupStateButtons();
 
 
         }
-        /// <summary>
-        /// whatever
-        /// </summary>
+
+
         private void SetupUI()
         {
             this.caNeighborhoodComboBox.SelectedIndex = 0;
@@ -109,8 +114,8 @@ namespace MultiscaleModelingProject
         {
             this.brushes = new List<Brush>();
             this.brushes.Add(Brushes.Black);
-
-            foreach (PropertyInfo pf in typeof(Brushes).GetProperties().Where(p => p.Name != "Black"))
+            this.brushes.Add(Brushes.Red);
+            foreach (PropertyInfo pf in typeof(Brushes).GetProperties().Where(p => p.Name != "Black" && p.Name != "Red"))
             {
                 this.brushes.Add(pf.GetValue(null, null) as Brush);
             }
@@ -118,6 +123,16 @@ namespace MultiscaleModelingProject
 
             this.brushes.Insert(0, Brushes.Black);
         }
+
+
+        private void SetupStateButtons()
+        {
+            this.stateButtons = new Dictionary<Button, EventsOfButton>();
+
+            this.stateButtons.Add(this.SelectButton, new EventsOfButton { BoardClick = SelectGrain, On = SelectGrain_Start, Off = SelectGrain_End });
+        }
+
+
 
         private void Board_Paint(object sender, PaintEventArgs e)
         {
@@ -130,7 +145,7 @@ namespace MultiscaleModelingProject
                     Cell c = this.grid.GetCell(x, y);
                     if (c.ID != 0)
                     {
-                        e.Graphics.FillRectangle((c.Selected) ? Brushes.Yellow : this.brushes[c.ID], x, y, 1, 1);
+                        e.Graphics.FillRectangle(this.brushes[c.ID], x, y, 1, 1);
                     }
                 }
             }
@@ -265,20 +280,102 @@ namespace MultiscaleModelingProject
 
         private void GBCnextStep_Click(object sender, EventArgs e)
         {
-            int chance = this.Propability;
-            this.ca.Step_GBC(chance);
+            int chance = Propability;
+            ca.Step_GBC(chance);
             Board.Refresh();
         }
 
         private void GBCsimulate_Click(object sender, EventArgs e)
         {
-            int chance = this.Propability;
-            while (this.ca.Step_GBC(chance))
+            int chance = Propability;
+            while (ca.Step_GBC(chance))
             {
                 Board.Refresh();
             }   
         }
 
+        #region BoardClickLogic
+
+        private void Board_Click(object sender, EventArgs e)
+        {
+            MouseEventArgs me = (MouseEventArgs)e;
+            int x = me.X;
+            int y = me.Y;
+
+            if (this.activeStateButton != null && this.stateButtons.ContainsKey(this.activeStateButton) && this.stateButtons[this.activeStateButton].BoardClick != null)
+            {
+                this.stateButtons[activeStateButton].BoardClick(x, y);
+                this.Board.Refresh();
+            }
+        }
+
+
+        private void stateButton_Click(object sender, EventArgs e)
+        {
+            foreach (Button btn in stateButtons.Keys)
+            {
+                btn.BackColor = SystemColors.Control;
+                btn.ForeColor = SystemColors.ControlText;
+            }
+
+            Button clickedButton = sender as Button;
+
+            // Off logic for prevoius button 
+            if (this.activeStateButton != null && this.stateButtons.ContainsKey(this.activeStateButton) && this.stateButtons[this.activeStateButton].Off != null)
+            {
+                this.stateButtons[this.activeStateButton].Off();
+            }
+
+            // Click in different button
+            if (this.activeStateButton != clickedButton)
+            {
+                this.activeStateButton = clickedButton;
+                clickedButton.BackColor = SystemColors.Highlight;
+                clickedButton.ForeColor = SystemColors.HighlightText;
+
+                // On logic
+                if (this.activeStateButton != null && this.stateButtons.ContainsKey(this.activeStateButton) && this.stateButtons[this.activeStateButton].On != null)
+                {
+                    this.stateButtons[this.activeStateButton].On();
+                }
+            }
+
+            // Unclick active button
+            else
+            {
+                activeStateButton = null;
+            }
+        }
+
+        private void SelectGrain_Start()
+        {
+            this.ca.StartSelectGrains(this.DPcheck);
+            //this.ca.StartSelectGrains(true);
+        }
+
+        private void SelectGrain(int x, int y)
+        {
+            this.ca.SelectGrain(x, y);
+            this.Board.Refresh();
+        }
+
+        private void SelectGrain_End()
+        {
+            this.ca.EndSelectGrains();
+            this.Board.Refresh();
+        }
+
+
+        #endregion BoardClickLogic
+
+        private void DPcheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
+//Information from dp in file->
+//after selecting -> block them(they cant grow)
+//other delete
+//

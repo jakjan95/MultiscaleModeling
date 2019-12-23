@@ -53,12 +53,15 @@
             this.inclusionMaxRLabel = new System.Windows.Forms.Label();
             this.csvLoadButton = new System.Windows.Forms.Button();
             this.GBCgroupBox = new System.Windows.Forms.GroupBox();
+            this.GBClabel = new System.Windows.Forms.Label();
             this.GBCnextStep = new System.Windows.Forms.Button();
             this.GBCnumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.GBCsimulate = new System.Windows.Forms.Button();
-            this.GBClabel = new System.Windows.Forms.Label();
             this.InclusiongroupBox1 = new System.Windows.Forms.GroupBox();
             this.BoardgroupBox = new System.Windows.Forms.GroupBox();
+            this.DPcheckBox = new System.Windows.Forms.CheckBox();
+            this.SelectButton = new System.Windows.Forms.Button();
+            this.SbDPgroupBox = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.Board)).BeginInit();
             this.caGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.caGrainsNumericUpDown)).BeginInit();
@@ -71,6 +74,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.GBCnumericUpDown)).BeginInit();
             this.InclusiongroupBox1.SuspendLayout();
             this.BoardgroupBox.SuspendLayout();
+            this.SbDPgroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // Board
@@ -81,6 +85,7 @@
             this.Board.Size = new System.Drawing.Size(500, 500);
             this.Board.TabIndex = 0;
             this.Board.TabStop = false;
+            this.Board.Click += new System.EventHandler(this.Board_Click);
             this.Board.Paint += new System.Windows.Forms.PaintEventHandler(this.Board_Paint);
             // 
             // caSimulateButton
@@ -379,6 +384,15 @@
             this.GBCgroupBox.TabStop = false;
             this.GBCgroupBox.Text = "GBC";
             // 
+            // GBClabel
+            // 
+            this.GBClabel.AutoSize = true;
+            this.GBClabel.Location = new System.Drawing.Point(1, 16);
+            this.GBClabel.Name = "GBClabel";
+            this.GBClabel.Size = new System.Drawing.Size(72, 13);
+            this.GBClabel.TabIndex = 9;
+            this.GBClabel.Text = "Propability [%]";
+            // 
             // GBCnextStep
             // 
             this.GBCnextStep.Location = new System.Drawing.Point(81, 40);
@@ -411,15 +425,6 @@
             this.GBCsimulate.UseVisualStyleBackColor = true;
             this.GBCsimulate.Click += new System.EventHandler(this.GBCsimulate_Click);
             // 
-            // GBClabel
-            // 
-            this.GBClabel.AutoSize = true;
-            this.GBClabel.Location = new System.Drawing.Point(1, 16);
-            this.GBClabel.Name = "GBClabel";
-            this.GBClabel.Size = new System.Drawing.Size(72, 13);
-            this.GBClabel.TabIndex = 9;
-            this.GBClabel.Text = "Propability [%]";
-            // 
             // InclusiongroupBox1
             // 
             this.InclusiongroupBox1.Controls.Add(this.InclusionsNumericUpDown);
@@ -448,11 +453,47 @@
             this.BoardgroupBox.TabStop = false;
             this.BoardgroupBox.Text = "Board";
             // 
+            // DPcheckBox
+            // 
+            this.DPcheckBox.AutoSize = true;
+            this.DPcheckBox.Checked = true;
+            this.DPcheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.DPcheckBox.Location = new System.Drawing.Point(9, 19);
+            this.DPcheckBox.Name = "DPcheckBox";
+            this.DPcheckBox.Size = new System.Drawing.Size(81, 17);
+            this.DPcheckBox.TabIndex = 20;
+            this.DPcheckBox.Text = "Dual-Phase";
+            this.DPcheckBox.UseVisualStyleBackColor = true;
+            this.DPcheckBox.CheckedChanged += new System.EventHandler(this.DPcheckBox_CheckedChanged);
+            // 
+            // SelectButton
+            // 
+            this.SelectButton.BackColor = System.Drawing.SystemColors.Control;
+            this.SelectButton.Location = new System.Drawing.Point(6, 42);
+            this.SelectButton.Name = "SelectButton";
+            this.SelectButton.Size = new System.Drawing.Size(76, 23);
+            this.SelectButton.TabIndex = 21;
+            this.SelectButton.Text = "Select";
+            this.SelectButton.UseVisualStyleBackColor = false;
+            this.SelectButton.Click += new System.EventHandler(this.stateButton_Click);
+            // 
+            // SbDPgroupBox
+            // 
+            this.SbDPgroupBox.Controls.Add(this.DPcheckBox);
+            this.SbDPgroupBox.Controls.Add(this.SelectButton);
+            this.SbDPgroupBox.Location = new System.Drawing.Point(562, 235);
+            this.SbDPgroupBox.Name = "SbDPgroupBox";
+            this.SbDPgroupBox.Size = new System.Drawing.Size(96, 68);
+            this.SbDPgroupBox.TabIndex = 22;
+            this.SbDPgroupBox.TabStop = false;
+            this.SbDPgroupBox.Text = "Substructures";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(662, 624);
+            this.Controls.Add(this.SbDPgroupBox);
             this.Controls.Add(this.BoardgroupBox);
             this.Controls.Add(this.InclusiongroupBox1);
             this.Controls.Add(this.GBCgroupBox);
@@ -480,6 +521,8 @@
             this.InclusiongroupBox1.PerformLayout();
             this.BoardgroupBox.ResumeLayout(false);
             this.BoardgroupBox.PerformLayout();
+            this.SbDPgroupBox.ResumeLayout(false);
+            this.SbDPgroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -517,6 +560,9 @@
         private System.Windows.Forms.Button GBCsimulate;
         private System.Windows.Forms.GroupBox InclusiongroupBox1;
         private System.Windows.Forms.GroupBox BoardgroupBox;
+        private System.Windows.Forms.CheckBox DPcheckBox;
+        private System.Windows.Forms.Button SelectButton;
+        private System.Windows.Forms.GroupBox SbDPgroupBox;
     }
 }
 

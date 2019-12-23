@@ -40,7 +40,8 @@ namespace MultiscaleModelingProject
         {
             bool[] usesArr = Enumerable.Repeat(false, MAX_GRAIN_ID).ToArray();
             usesArr[0] = true; // empty
-            //usesArr[1] = true; // inclusion
+            usesArr[1] = true; // inclusion
+            usesArr[2] = true; // Phase 1 for dualphase
 
             this.grid.ResetCurrentCellPosition();
 
@@ -151,12 +152,15 @@ namespace MultiscaleModelingProject
         //}
 
         /// <summary>
-        /// edit on asynchronic
+        /// TODO:
+        /// --zrobic warunek ze jak jest 100% to leci z moora
+        /// jezeli mniej niz 100% to leci wedlug tych zasad
+        /// -zrobic warunek ze jezeli moor jest wybrany to wtedy powyzsze zasady dzialaja
         /// </summary>
         /// <param name="name"></param>
         /// <param name="board"></param>
         /// 
-
+     
         public async Task StartAsync(string name, PictureBox board, CancellationToken ct)
         {
             if (name.Equals("Moore"))
@@ -253,10 +257,10 @@ namespace MultiscaleModelingProject
                     //Check Rule 1
                     int id = -1;
                     int max = -1;
-                    var x = grid.CurrentCell.MoorNeighborhood.GroupBy(a => a.ID).Select(a => new { Id = a.Key, Value = a.Count() }).ToList();
+                    var x = grid.CurrentCell.MoorNeighborhood.GroupBy(a => a.ID).Select( a => new { Id = a.Key, Value = a.Count() }).ToList();
                     for (int i = 0; i < x.Count; i++)
                     {
-                        if (x[i].Id == 0 || x[i].Id == 1)
+                        if (x[i].Id == 0 || x[i].Id == 1 || x[i].Id == 2)
                             continue;
                         if (x[i].Value > max)
                         {
@@ -278,7 +282,8 @@ namespace MultiscaleModelingProject
                     x = grid.CurrentCell.VonNeumannNeighborhood.GroupBy(a => a.ID).Select(a => new { Id = a.Key, Value = a.Count() }).ToList();
                     for (int i = 0; i < x.Count; i++)
                     {
-                        if (x[i].Id == 0 || x[i].Id == 1)
+                       
+                        if (x[i].Id == 0 || x[i].Id == 1 || x[i].Id == 2)
                             continue;
                         if (x[i].Value > max)
                         {
@@ -300,7 +305,7 @@ namespace MultiscaleModelingProject
                     x = grid.CurrentCell.FurtherMooreNeighborhood.GroupBy(a => a.ID).Select(a => new { Id = a.Key, Value = a.Count() }).ToList();
                     for (int i = 0; i < x.Count; i++)
                     {
-                        if (x[i].Id == 0 || x[i].Id == 1)
+                        if (x[i].Id == 0 || x[i].Id == 1 || x[i].Id == 2)
                             continue;
                         if (x[i].Value > max)
                         {
@@ -322,7 +327,7 @@ namespace MultiscaleModelingProject
                     x = grid.CurrentCell.MoorNeighborhood.GroupBy(a => a.ID).Select(a => new { Id = a.Key, Value = a.Count() }).ToList();
                     for (int i = 0; i < x.Count; i++)
                     {
-                        if (x[i].Id == 0 || x[i].Id == 1)
+                        if (x[i].Id == 0 || x[i].Id == 1 || x[i].Id == 2)
                             continue;
                         if (x[i].Value > max)
                         {
@@ -335,6 +340,7 @@ namespace MultiscaleModelingProject
                     {
                         ++changes;
                         grid.CurrentCell.NewID = id;
+                        continue;
                     }
 
                 }
@@ -350,6 +356,63 @@ namespace MultiscaleModelingProject
         }
         //======================================================================
 
+        public void StartSelectGrains(bool changeId)
+        {
+            if (changeId)
+            {
+                this.idForSelectedGrain = 2;
+            }
+            else
+            {
+                this.idForSelectedGrain = null;
+            }
+
+            this.grid.ResetCurrentCellPosition();
+
+            // Reset selected state
+            do
+            {
+                this.grid.CurrentCell.Selected = false;
+            } while (this.grid.Next());
+        }
+
+        public void SelectGrain(int x, int y)
+        {
+            int selectedId = this.grid.GetCell(x, y).ID;
+            this.grid.ResetCurrentCellPosition();
+
+            do
+            {
+                if (this.grid.CurrentCell.ID == selectedId)
+                {
+                    this.grid.CurrentCell.Selected = true;
+
+                    if (this.idForSelectedGrain.HasValue)
+                    {
+                        this.grid.CurrentCell.ID = this.idForSelectedGrain.Value;
+                        this.grid.CurrentCell.NewID = this.idForSelectedGrain.Value;
+                    }
+                }
+            } while (this.grid.Next());
+        }
+
+
+        public void EndSelectGrains()
+        {
+            this.grid.ResetCurrentCellPosition();
+
+            do
+            {
+                if (!this.grid.CurrentCell.Selected && this.grid.CurrentCell.ID > 1) // 0 - empty cell, 1 - inclusion
+                {
+                    this.grid.CurrentCell.ID = 0;
+                    this.grid.CurrentCell.NewID = 0;
+                }
+            } while (this.grid.Next());
+        }
+
+
+        //=====================================================================================================================
 
         //For Moore
         protected bool Moore(Cell c)

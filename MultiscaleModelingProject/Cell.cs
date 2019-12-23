@@ -8,13 +8,13 @@ namespace MultiscaleModelingProject
 {
     public class Cell
     {
-        public int ID { get; set; }
+        public int ID { set; get; }
 
-        public int NewID { get; set; }
+        public int NewID { set; get; }
 
-        public bool Selected { get; set; }
+        public bool Selected { set; get; }
 
-        public Cell[] Neighbors { get; set; }
+        public Cell[] Neighbors { set; get; }
 
         public Cell() : this(0)
         {
