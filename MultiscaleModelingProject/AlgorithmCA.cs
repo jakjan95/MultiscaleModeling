@@ -257,7 +257,7 @@ namespace MultiscaleModelingProject
                     //Check Rule 1
                     int id = -1;
                     int max = -1;
-                    var x = grid.CurrentCell.MoorNeighborhood.GroupBy(a => a.ID).Select( a => new { Id = a.Key, Value = a.Count() }).ToList();
+                    var x = grid.CurrentCell.MoorNeighborhood.Where(a => !a.Selected).GroupBy(a => a.ID).Select(a => new { Id = a.Key, Value = a.Count() }).ToList();
                     for (int i = 0; i < x.Count; i++)
                     {
                         if (x[i].Id == 0 || x[i].Id == 1 || x[i].Id == 2)
@@ -279,7 +279,7 @@ namespace MultiscaleModelingProject
                     //Check Rule 2
                     id = -1;
                     max = -1;
-                    x = grid.CurrentCell.VonNeumannNeighborhood.GroupBy(a => a.ID).Select(a => new { Id = a.Key, Value = a.Count() }).ToList();
+                    x = grid.CurrentCell.VonNeumannNeighborhood.Where(a => !a.Selected).GroupBy(a => a.ID).Select(a => new { Id = a.Key, Value = a.Count() }).ToList();
                     for (int i = 0; i < x.Count; i++)
                     {
                        
@@ -302,7 +302,7 @@ namespace MultiscaleModelingProject
                     //Check Rule 3
                     id = -1;
                     max = -1;
-                    x = grid.CurrentCell.FurtherMooreNeighborhood.GroupBy(a => a.ID).Select(a => new { Id = a.Key, Value = a.Count() }).ToList();
+                    x = grid.CurrentCell.FurtherMooreNeighborhood.Where(a => !a.Selected).GroupBy(a => a.ID).Select(a => new { Id = a.Key, Value = a.Count() }).ToList();
                     for (int i = 0; i < x.Count; i++)
                     {
                         if (x[i].Id == 0 || x[i].Id == 1 || x[i].Id == 2)
@@ -324,7 +324,7 @@ namespace MultiscaleModelingProject
 
                     id = -1;
                     max = -1;
-                    x = grid.CurrentCell.MoorNeighborhood.GroupBy(a => a.ID).Select(a => new { Id = a.Key, Value = a.Count() }).ToList();
+                    x = grid.CurrentCell.MoorNeighborhood.Where(a => !a.Selected).GroupBy(a => a.ID).Select(a => new { Id = a.Key, Value = a.Count() }).ToList();
                     for (int i = 0; i < x.Count; i++)
                     {
                         if (x[i].Id == 0 || x[i].Id == 1 || x[i].Id == 2)
