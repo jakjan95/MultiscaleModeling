@@ -79,7 +79,7 @@ namespace MultiscaleModelingProject
                     do
                     {
                         c = this.grid.GetCell(RandomHelper.Next(this.Width), RandomHelper.Next(this.Height));
-                    } while (c.ID != 0 || c.Selected);
+                    } while (c.ID != 0 || c.Selected );
                 c.ID = notUsedIds[i];
                 }
 
@@ -216,17 +216,33 @@ namespace MultiscaleModelingProject
 
         public async Task<bool> StepAsync()
         {
+
+            for(int x=0;x<this.grid.Width;x++)
+            {
+                for (int y = 0; y < this.grid.Width; y++)
+                {
+                    Cell c = this.grid.GetCell(x - 1, y);
+                    if (c.ID == 2)
+                    {
+                        c.Selected = true;
+                    }
+                }
+
+            }
+            
+            
             int changes = 0;
             grid.ResetCurrentCellPosition();
             //Iterate cells line by line
             do
             {
+
                 //Grains growth only on empty cell
                 if (grid.CurrentCell.ID == 0)
                 {
                     if (selectedNeighborhood(grid.CurrentCell))
                     {
-                        ++changes;
+                            ++changes;
                     }
                 }
             } while (grid.Next());

@@ -62,6 +62,7 @@
             this.DPcheckBox = new System.Windows.Forms.CheckBox();
             this.SelectButton = new System.Windows.Forms.Button();
             this.SbDPgroupBox = new System.Windows.Forms.GroupBox();
+            this.boundariesButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Board)).BeginInit();
             this.caGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.caGrainsNumericUpDown)).BeginInit();
@@ -488,11 +489,22 @@
             this.SbDPgroupBox.TabStop = false;
             this.SbDPgroupBox.Text = "Substructures";
             // 
+            // boundariesButton
+            // 
+            this.boundariesButton.Location = new System.Drawing.Point(568, 338);
+            this.boundariesButton.Name = "boundariesButton";
+            this.boundariesButton.Size = new System.Drawing.Size(76, 23);
+            this.boundariesButton.TabIndex = 23;
+            this.boundariesButton.Text = "Boundaries";
+            this.boundariesButton.UseVisualStyleBackColor = true;
+            this.boundariesButton.Click += new System.EventHandler(this.boundariesButton_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(662, 624);
+            this.Controls.Add(this.boundariesButton);
             this.Controls.Add(this.SbDPgroupBox);
             this.Controls.Add(this.BoardgroupBox);
             this.Controls.Add(this.InclusiongroupBox1);
@@ -563,6 +575,7 @@
         private System.Windows.Forms.CheckBox DPcheckBox;
         private System.Windows.Forms.Button SelectButton;
         private System.Windows.Forms.GroupBox SbDPgroupBox;
+        private System.Windows.Forms.Button boundariesButton;
     }
 }
 
